@@ -4,7 +4,7 @@
 Zaktualizowanie modelu po stronie Django
 > python manage.py makemigrations
 
-Zmigrowanie bazy do systemu bazodanowego
+Zmigrowanie modelu bazy do systemu bazodanowego
 > python manage.py migrate
 
 ### Uruchamianie 
