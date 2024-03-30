@@ -6,4 +6,6 @@ urlpatterns = [
     path('viewAllRestaurants', views.viewAllRestaurants),
     path('viewAllAchivements', views.viewAllAchivements),
     path('viewAllUsers', views.viewAllUsers),
+    path('viewUserAchivements', views.viewUserAchivements),
+    path('viewUserVisited_Restaurants', views.viewUserVisited_Restaurants),
 ]

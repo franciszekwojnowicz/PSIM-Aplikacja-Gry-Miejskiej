@@ -13,4 +13,4 @@ Uruchomienie backendu, można się łączyć po porcie 8000
 
 ### Panel django /admin/
 trzeba utworzyć konto admina
-python manage.py createsuperuser
+>python manage.py createsuperuser
