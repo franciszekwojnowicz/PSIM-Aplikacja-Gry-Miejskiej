@@ -9,4 +9,8 @@ Zmigrowanie modelu bazy do systemu bazodanowego
 
 ### Uruchamianie 
 Uruchomienie backendu, można się łączyć po porcie 8000
->python manage.py startserver
+>python manage.py runserver
+
+###Panel django /admin/
+trzeba utworzyć konto admina
+python manage.py createsuperuser
