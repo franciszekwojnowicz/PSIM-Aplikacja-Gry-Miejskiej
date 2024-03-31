@@ -10,4 +10,5 @@ urlpatterns = [
     path('viewUserVisited_Restaurants', views.viewUserVisited_Restaurants),
     path('addVisited_Restaurants', views.addVisited_Restaurant),
     path('addComment', views.addComment),
+    path('addUser', views.addUser)
 ]

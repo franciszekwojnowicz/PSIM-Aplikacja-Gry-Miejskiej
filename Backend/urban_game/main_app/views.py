@@ -12,34 +12,39 @@ def test(request):
     else:
         return HttpResponse(400)
 
-#do wszystkich dodać dodatkowe warunki integralności danych
+
+    
+@api_view(['GET'])
 def viewAllRestaurants(request):
-    if request.method == 'GET':
+    try:
         restaurants=Restaurant.objects.all()
         serializer=RestaurantSerializer(restaurants,many=True)
         return JsonResponse(serializer.data,safe=False)
-    else:
-        return HttpResponse(status=400)
+    except Exception as e:
+        return Response(status=400, data=repr(e))
 
+@api_view(['GET'])
 def viewAllAchivements(request):
-    if request.method == 'GET':
+    try:
         achivements=Achivement.objects.all()
         serializer=AchivementSerializer(achivements,many=True)
         print(serializer.data)
         return JsonResponse(serializer.data,safe=False)
-    else:
-        return HttpResponse(status=400)
+    except Exception as e:
+        return Response(status=400, data=repr(e))
 
+@api_view(['GET'])
 def viewAllUsers(request):
-    if request.method == 'GET':
+    try:
         users=User.objects.all()
         serializer=UserSerializer(users,many=True)
         return JsonResponse(serializer.data,safe=False)
-    else:
-        return HttpResponse(status=400)
+    except Exception as e:
+        return Response(status=400, data=repr(e))
 
+@api_view(['GET'])
 def viewUserAchivements(request):
-    if request.method == 'GET':
+    try:
         id = request.GET.get('user')
         unlocked_achvement_database=Unlocked_Achivement.objects.filter(user=id)
         unlocked_achvements_serializer=Unlocked_AchivementSerializer(unlocked_achvement_database,many=True)
@@ -50,12 +55,12 @@ def viewUserAchivements(request):
         achivements=Achivement.objects.filter(id__in=achivement_id)
         achivement_serializer=AchivementSerializer(achivements,many=True)
         return JsonResponse(achivement_serializer.data,safe=False)
-    else:
-        return HttpResponse(status=400)
+    except Exception as e:
+        return Response(status=400, data=repr(e))
     
-
+@api_view(['GET'])
 def viewUserVisited_Restaurants(request):
-    if request.method == 'GET':
+    try:
         id = request.GET.get('user')
         visited_restaurant_database=Visited_Restaurant.objects.filter(user=id)
         visited_restaurant_serializer=Visited_RestaurantSerializer(visited_restaurant_database,many=True)
@@ -66,11 +71,12 @@ def viewUserVisited_Restaurants(request):
         restaurants=Restaurant.objects.filter(id__in=restaurant_id)
         restaurant_serializer=RestaurantSerializer(restaurants,many=True)
         return JsonResponse(restaurant_serializer.data,safe=False)
-    else:
-        return HttpResponse(status=400)  
-    
+    except Exception as e:
+        return Response(status=400, data=repr(e))  
+
+@api_view(['GET'])  
 def addVisited_Restaurant(request):
-    if request.method == 'GET':
+    try:
         code = request.GET.get('code')
         user = request.GET.get('user')
         restaurant=Restaurant.objects.get(unlock_code=code).id
@@ -78,23 +84,41 @@ def addVisited_Restaurant(request):
         visited_restaurant.full_clean()
         visited_restaurant.save()
         #tutaj można wstawić jakieś warunki do achivementów, np sprawdza ile restauracji danego typu odwiedzono i dodaje inlocked_achivement do usera
-        return HttpResponse(status=200)
-    else:
-        return HttpResponse(status=400)
-    
+        return Response(status=200)
+    except Exception as e:
+        return Response(status=400, data=repr(e))
+
+@api_view(['POST'])
 def addComment(request):
-    if request.method == 'GET':
-        restaurant = Restaurant.objects.get(id=request.GET.get('restaurant'))
-        user = User.objects.get(id=request.GET.get('user'))
-        text = request.GET.get('text')
-        if request.GET.get('comment') is not None:
-            comment = Comment.objects.get(id=request.GET.get('comment'))
+    try:
+        restaurant = Restaurant.objects.get(id=request.data.get('restaurant'))
+        user = User.objects.get(id=request.data.get('user'))
+        text = request.data.get('text')
+        if request.data.get('comment') is not None:
+            comment = Comment.objects.get(id=request.data.get('comment'))
             new_comment=Comment(restaurant=restaurant,user=user,text=text,to_comment=comment)
         else:
             new_comment=Comment(restaurant=restaurant,user=user,text=text,to_comment=None)
         new_comment.full_clean()
         new_comment.save()
-        return HttpResponse(status=200)
-    else:
-        return HttpResponse(status=400)
+        serializer=CommentSerializer(new_comment)
+        return Response(serializer.data,status=201)
+    except Exception as e:
+        return Response(status=400, data=repr(e))
+
+@api_view(['POST'])    
+def addUser(request):
+    try:
+        name = request.data.get('name')
+        email = request.data.get('email')
+        password = request.data.get('password')
+        user = User(name=name,email=email,password=password,points=0)
+        user.full_clean()
+        user.save()
+        serializer=UserSerializer(user)
+        return Response(serializer.data,status=201)
+    except Exception as e:
+        return Response(status=400, data=repr(e))
+
+
 
