@@ -37,7 +37,7 @@ class Comment(models.Model):
     user = models.ForeignKey('User',on_delete=models.CASCADE)
     restaurant = models.ForeignKey('Restaurant',on_delete=models.CASCADE)
     text = models.TextField()
-    to_comment = models.ForeignKey("self", on_delete=models.CASCADE)
+    to_comment = models.ForeignKey("self", on_delete=models.CASCADE,null=True,blank=True)
     class Meta:
         db_table = 'Comment'
 

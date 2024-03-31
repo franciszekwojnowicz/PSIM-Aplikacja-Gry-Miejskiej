@@ -12,6 +12,7 @@ def test(request):
     else:
         return HttpResponse(400)
 
+#do wszystkich dodać dodatkowe warunki integralności danych
 def viewAllRestaurants(request):
     if request.method == 'GET':
         restaurants=Restaurant.objects.all()
@@ -67,4 +68,33 @@ def viewUserVisited_Restaurants(request):
         return JsonResponse(restaurant_serializer.data,safe=False)
     else:
         return HttpResponse(status=400)  
-        
+    
+def addVisited_Restaurant(request):
+    if request.method == 'GET':
+        code = request.GET.get('code')
+        user = request.GET.get('user')
+        restaurant=Restaurant.objects.get(unlock_code=code).id
+        visited_restaurant=Visited_Restaurant(user=user,restaurant=restaurant)
+        visited_restaurant.full_clean()
+        visited_restaurant.save()
+        #tutaj można wstawić jakieś warunki do achivementów, np sprawdza ile restauracji danego typu odwiedzono i dodaje inlocked_achivement do usera
+        return HttpResponse(status=200)
+    else:
+        return HttpResponse(status=400)
+    
+def addComment(request):
+    if request.method == 'GET':
+        restaurant = Restaurant.objects.get(id=request.GET.get('restaurant'))
+        user = User.objects.get(id=request.GET.get('user'))
+        text = request.GET.get('text')
+        if request.GET.get('comment') is not None:
+            comment = Comment.objects.get(id=request.GET.get('comment'))
+            new_comment=Comment(restaurant=restaurant,user=user,text=text,to_comment=comment)
+        else:
+            new_comment=Comment(restaurant=restaurant,user=user,text=text,to_comment=None)
+        new_comment.full_clean()
+        new_comment.save()
+        return HttpResponse(status=200)
+    else:
+        return HttpResponse(status=400)
+
