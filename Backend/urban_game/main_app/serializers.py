@@ -31,3 +31,11 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = '__all__'
 
+class CommentUserNameSerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField("get_user")
+    class Meta:
+        model = Comment
+        fields = ['id','text','date','name', 'restaurant', 'to_comment'] 
+    def get_user(self,obj):
+        return obj.user.name
+    

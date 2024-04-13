@@ -3,6 +3,7 @@ from .serializers import *
 from django.http import HttpResponse, JsonResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.utils import timezone
 # Create your views here.
 
 #simple views connection test
@@ -17,28 +18,27 @@ def test(request):
 @api_view(['GET'])
 def viewAllRestaurants(request):
     try:
-        restaurants=Restaurant.objects.all()
-        serializer=RestaurantSerializer(restaurants,many=True)
-        return JsonResponse(serializer.data,safe=False)
+        restaurants_database=Restaurant.objects.all()
+        restaurant_serialized=RestaurantSerializer(restaurants_database,many=True)
+        return JsonResponse(restaurant_serialized.data,safe=False)
     except Exception as e:
         return Response(status=400, data=repr(e))
 
 @api_view(['GET'])
 def viewAllAchivements(request):
     try:
-        achivements=Achivement.objects.all()
-        serializer=AchivementSerializer(achivements,many=True)
-        print(serializer.data)
-        return JsonResponse(serializer.data,safe=False)
+        achivements_database=Achivement.objects.all()
+        svhivements_serialized=AchivementSerializer(achivements_database,many=True)
+        return JsonResponse(svhivements_serialized.data,safe=False)
     except Exception as e:
         return Response(status=400, data=repr(e))
 
 @api_view(['GET'])
 def viewAllUsers(request):
     try:
-        users=User.objects.all()
-        serializer=UserSerializer(users,many=True)
-        return JsonResponse(serializer.data,safe=False)
+        users_database=User.objects.all()
+        users_serializerd=UserSerializer(users_database,many=True)
+        return JsonResponse(users_serializerd.data,safe=False)
     except Exception as e:
         return Response(status=400, data=repr(e))
 
@@ -47,14 +47,16 @@ def viewUserAchivements(request):
     try:
         id = request.GET.get('user')
         unlocked_achvement_database=Unlocked_Achivement.objects.filter(user=id)
-        unlocked_achvements_serializer=Unlocked_AchivementSerializer(unlocked_achvement_database,many=True)
-        unlocked_achivements=unlocked_achvements_serializer.data
+        unlocked_achvements_serialized=Unlocked_AchivementSerializer(unlocked_achvement_database,many=True)
+        unlocked_achivements=unlocked_achvements_serialized.data
         achivement_id=[]
+        # tworzymy listę id odblokowanych achivementów
         for unlocked_achivement in unlocked_achivements:
             achivement_id.append(unlocked_achivement["achivement"])
+        # filtrujemy po id z listy
         achivements=Achivement.objects.filter(id__in=achivement_id)
-        achivement_serializer=AchivementSerializer(achivements,many=True)
-        return JsonResponse(achivement_serializer.data,safe=False)
+        achivement_serialized=AchivementSerializer(achivements,many=True)
+        return JsonResponse(achivement_serialized.data,safe=False)
     except Exception as e:
         return Response(status=400, data=repr(e))
     
@@ -63,16 +65,34 @@ def viewUserVisited_Restaurants(request):
     try:
         id = request.GET.get('user')
         visited_restaurant_database=Visited_Restaurant.objects.filter(user=id)
-        visited_restaurant_serializer=Visited_RestaurantSerializer(visited_restaurant_database,many=True)
-        visited_restaurants=visited_restaurant_serializer.data
+        visited_restaurant_serialized=Visited_RestaurantSerializer(visited_restaurant_database,many=True)
+        visited_restaurants=visited_restaurant_serialized.data
         restaurant_id=[]
+        # tworzymy listę id odwiedzonych resauracji
         for visited_restaurant in visited_restaurants:
             restaurant_id.append(visited_restaurant["restaurant"])
+        # filtrujemy po id z listy
         restaurants=Restaurant.objects.filter(id__in=restaurant_id)
-        restaurant_serializer=RestaurantSerializer(restaurants,many=True)
-        return JsonResponse(restaurant_serializer.data,safe=False)
+        restaurant_serialized=RestaurantSerializer(restaurants,many=True)
+        return JsonResponse(restaurant_serialized.data,safe=False)
     except Exception as e:
-        return Response(status=400, data=repr(e))  
+        return Response(status=400, data=repr(e))
+
+@api_view(['GET'])
+def viewCommentsForRestaurant(request):
+    try:
+        restaurant = request.GET.get('restaurant')
+        base_comments_database = Comment.objects.filter(restaurant=restaurant,to_comment__isnull=True)
+        base_comments_serialized=CommentUserNameSerializer(base_comments_database,many=True)
+        base_comments=base_comments_serialized.data
+        # dla każdego komentarza nie będącego podkomentarzem doklejamy jego podkomentarze
+        for base_comment in base_comments:
+            subcomments_database = Comment.objects.filter(restaurant=restaurant,to_comment=base_comment["id"]).order_by('date')
+            subcomments_serialized = CommentUserNameSerializer(subcomments_database,many=True)
+            base_comment["subcomments"]=subcomments_serialized.data
+        return JsonResponse(base_comments,safe=False)
+    except Exception as e:
+        return Response(status=400, data=repr(e))   
 
 @api_view(['GET'])  
 def addVisited_Restaurant(request):
@@ -96,13 +116,13 @@ def addComment(request):
         text = request.data.get('text')
         if request.data.get('comment') is not None:
             comment = Comment.objects.get(id=request.data.get('comment'))
-            new_comment=Comment(restaurant=restaurant,user=user,text=text,to_comment=comment)
+            new_comment=Comment(restaurant=restaurant,user=user,text=text,to_comment=comment,date=timezone.now())
         else:
-            new_comment=Comment(restaurant=restaurant,user=user,text=text,to_comment=None)
+            new_comment=Comment(restaurant=restaurant,user=user,text=text,to_comment=None,date=timezone.now())
         new_comment.full_clean()
         new_comment.save()
-        serializer=CommentSerializer(new_comment)
-        return Response(serializer.data,status=201)
+        comment_serialized=CommentSerializer(new_comment)
+        return Response(comment_serialized.data,status=201)
     except Exception as e:
         return Response(status=400, data=repr(e))
 
@@ -115,8 +135,8 @@ def addUser(request):
         user = User(name=name,email=email,password=password,points=0)
         user.full_clean()
         user.save()
-        serializer=UserSerializer(user)
-        return Response(serializer.data,status=201)
+        user_serialized=UserSerializer(user)
+        return Response(user_serialized.data,status=201)
     except Exception as e:
         return Response(status=400, data=repr(e))
 

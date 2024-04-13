@@ -38,6 +38,7 @@ class Comment(models.Model):
     restaurant = models.ForeignKey('Restaurant',on_delete=models.CASCADE)
     text = models.TextField()
     to_comment = models.ForeignKey("self", on_delete=models.CASCADE,null=True,blank=True)
+    date = models.DateTimeField()
     class Meta:
         db_table = 'Comment'
 
