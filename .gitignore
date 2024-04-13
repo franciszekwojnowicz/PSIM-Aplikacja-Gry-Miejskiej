@@ -1,3 +1,4 @@
 Backend/urban_game/main_app/migrations
 Backend/urban_game/main_app/__pycache__
 Backend/urban_game/urban_game/__pycache__
+Backend/urban_game/urban_game/db.sqlite3
