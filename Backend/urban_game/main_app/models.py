@@ -47,9 +47,11 @@ class Visited_Restaurant(models.Model):
     restaurant = models.ForeignKey('Restaurant',on_delete=models.CASCADE)
     class Meta:
         db_table = 'Visited_Restaurant'
+        constraints = [models.UniqueConstraint(fields=['user','restaurant'],name='unique_user_restaurant'),]
 
 class Unlocked_Achivement(models.Model):
-    achivement = models.ForeignKey('Achivement',on_delete=models.CASCADE)
     user = models.ForeignKey('User',on_delete=models.CASCADE)
+    achivement = models.ForeignKey('Achivement',on_delete=models.CASCADE)
     class Meta:
         db_table = 'Unlocked_Achivement'      
+        constraints = [models.UniqueConstraint(fields=['user','achivement'],name='unique_user_achivement'),]

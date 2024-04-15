@@ -8,7 +8,7 @@ urlpatterns = [
     path('viewAllUsers', views.viewAllUsers),
     path('viewUserAchivements', views.viewUserAchivements),
     path('viewUserVisited_Restaurants', views.viewUserVisited_Restaurants),
-    path('addVisited_Restaurants', views.addVisited_Restaurant),
+    path('addVisited_Restaurant', views.addVisited_Restaurant),
     path('addComment', views.addComment),
     path('addUser', views.addUser),
     path('viewCommentsForRestaurant',views.viewCommentsForRestaurant)

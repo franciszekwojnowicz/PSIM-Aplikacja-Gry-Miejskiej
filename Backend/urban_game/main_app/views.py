@@ -99,8 +99,9 @@ def addVisited_Restaurant(request):
     try:
         code = request.GET.get('code')
         user = request.GET.get('user')
-        restaurant=Restaurant.objects.get(unlock_code=code).id
-        visited_restaurant=Visited_Restaurant(user=user,restaurant=restaurant)
+        restaurant_database=Restaurant.objects.get(unlock_code=code)
+        user_database=User.objects.get(id=user)
+        visited_restaurant=Visited_Restaurant(user=user_database,restaurant=restaurant_database)
         visited_restaurant.full_clean()
         visited_restaurant.save()
         #tutaj można wstawić jakieś warunki do achivementów, np sprawdza ile restauracji danego typu odwiedzono i dodaje inlocked_achivement do usera

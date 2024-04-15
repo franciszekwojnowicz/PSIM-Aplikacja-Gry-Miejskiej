@@ -13,8 +13,13 @@ class AchivementSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Achivement
+        model = User
         fields = ['name', 'points']
+
+class UserSerializerAll(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
 
 class Unlocked_AchivementSerializer(serializers.ModelSerializer):
     class Meta:
