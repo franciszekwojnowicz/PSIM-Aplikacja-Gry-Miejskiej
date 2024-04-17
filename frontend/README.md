@@ -13,7 +13,7 @@ Go to terminal and run in _./frontend/_ folder: <code>npm run dev</code>
 <code>localhost:5173/</code> (port can be diffrent!)
 
 _/restaurants_ - page with all restaurants, which have been visited + text area to add more restaurants by ID (logic not implemented yet)  
-_/resturants/info_ - page with info about specific restaurant (at this moment, only Restauracja Bella Storia included for preview)  
+_/restaurants/info_ - page with info about specific restaurant (at this moment, only Restauracja Bella Storia included for preview)  
 _/achievements_ - page with all achievements collected by User (only preview right now)  
 _/login_ - page to login (logic not implemented yet)  
 _/signup_ - page to sign up (logic not implemented yet)
