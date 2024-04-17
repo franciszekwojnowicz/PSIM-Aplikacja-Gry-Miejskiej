@@ -8,6 +8,7 @@ function Star() {
         viewBox="0 0 20 20"
         fill="currentColor"
         className="w-5 h-5"
+        stroke="black"
       >
         <path
           fillRule="evenodd"

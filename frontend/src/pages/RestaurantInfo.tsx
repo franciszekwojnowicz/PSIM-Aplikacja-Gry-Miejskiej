@@ -2,6 +2,8 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import StarEmpty from "../components/icons/StarEmpty";
 import StarFilled from "../components/icons/StarFilled";
+import CommentSection from "../components/CommentSection";
+import Pin from "../components/icons/Pin";
 
 function RestaurantInfo() {
   return (
@@ -22,25 +24,34 @@ function RestaurantInfo() {
               </a>
             </div>
           </div>
-          <div className="grid  grid-flow-row-dense">
-            <h1 className="font-medium text-center text-3xl h-3">
+          <div className="grid grid-flow-row-dense">
+            <h1 className="font-medium text-center text-3xl h-2">
               Restauracja Bella Storia
             </h1>
-            <h1 className="font-medium text-left h-2 text-2xl">
-              Opis:
-            </h1>
-            <p className="items-start">
-            Prosta restauracja z ceglanymi ścianami oferująca włoskie klasyki, w tym makaron, pizzę i dania mięsne, oraz piwo.
+            <h1 className="font-medium text-left h-1 text-2xl">Opis</h1>
+            <p className="items-start text-lg">
+              Prosta restauracja z ceglanymi ścianami oferująca włoskie klasyki,
+              w tym makaron, pizzę i dania mięsne, oraz piwo.
             </p>
-            <div className="flex text-yellow-300">
-            <StarFilled />
-            <StarFilled />
-            <StarFilled />
-            <StarEmpty />
-            <StarEmpty />
+            <div className="flex space-x-2 content-center place-items-baseline">
+              <h1 className="font-medium text-left h-1 text-2xl">Ocena:</h1>
+              <div className="flex text-yellow-400 ">
+                <StarFilled />
+                <StarFilled />
+                <StarFilled />
+                <StarEmpty />
+                <StarEmpty />
+              </div>
+            </div>
+            <div className="flex space-x-2 content-center place-items-baseline">
+              <Pin link={"linkToMap"} />
+              <p className="font-medium text-left h-1 text-lg">
+                Plac Grunwaldzki 53, Wrocław
+              </p>
             </div>
           </div>
         </div>
+        <CommentSection />
       </div>
     </>
   );
