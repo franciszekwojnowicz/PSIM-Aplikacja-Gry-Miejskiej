@@ -1,30 +1,19 @@
-# React + TypeScript + Vite
+# Requirements
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**npm** have to be installed (npm is installed with Node.js)  
+This means that you have to install Node.js to get npm installed on your computer.  
+Download Node.js from the official Node.js web site: https://nodejs.org
 
-Currently, two official plugins are available:
+# Run
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Go to terminal and run in _./frontend/_ folder: <code>npm run dev</code>
 
-## Expanding the ESLint configuration
+# Sites
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+<code>localhost:5173/</code> (port can be diffrent!)
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+_/restaurants_ - page with all restaurants, which have been visited + text area to add more restaurants by ID (logic not implemented yet)  
+_/resturants/info_ - page with info about specific restaurant (at this moment, only Restauracja Bella Storia included for preview)  
+_/achievements_ - page with all achievements collected by User (only preview right now)  
+_/login_ - page to login (logic not implemented yet)  
+_/signup_ - page to sign up (logic not implemented yet)
