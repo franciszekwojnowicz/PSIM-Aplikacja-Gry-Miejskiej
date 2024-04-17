@@ -8,8 +8,9 @@ import {
 import Restarants from "./pages/Restaurants";
 import NotFoundPage from "./pages/NotFoundPage";
 import RestaurantInfo from "./pages/RestaurantInfo";
-import Achivements from "./pages/Achievements";
+import Achievements from "./pages/Achievements";
 import LoginPage from "./pages/LoginPage";
+import SignUpPage from "./pages/SignUpPage";
 
 function RoutesComponent() {
   return (
@@ -19,8 +20,9 @@ function RoutesComponent() {
           <Route path="/" element={<Navigate to={"/restaurants"} />}></Route>
           <Route path="/restaurants" element={<Restarants />} />
           <Route path="/restaurants/info" element={<RestaurantInfo />} />
-          <Route path="/achivements" element={<Achivements />} />
+          <Route path="/achievements" element={<Achievements />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
           <Route path="*" element={<NotFoundPage />}></Route>
         </Routes>
       </Router>

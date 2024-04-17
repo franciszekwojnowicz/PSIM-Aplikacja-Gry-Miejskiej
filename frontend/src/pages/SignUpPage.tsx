@@ -1,7 +1,6 @@
-import React from "react";
 import Navbar from "../components/Navbar";
 
-function LoginPage() {
+function SignUpPage() {
   return (
     <>
       <Navbar />
@@ -9,17 +8,33 @@ function LoginPage() {
         <div className="w-full">
           <div className="text-center">
             <h1 className="text-3xl font-semibold text-gray-900">
-              Zaloguj się
+              Rejestracja
             </h1>
           </div>
           <div className="mt-5">
             <form action="">
               <div className="relative mt-6">
                 <input
+                  type="username"
+                  name="username"
+                  id="username"
+                  placeholder="Nazwa użytkownika"
+                  className="peer mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none"
+                  autoComplete="NA"
+                />
+                <label
+                  htmlFor="username"
+                  className="pointer-events-none absolute top-0 left-0 origin-left -translate-y-1/2 transform text-sm text-gray-800 opacity-75 transition-all duration-100 ease-in-out peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:top-0 peer-focus:pl-0 peer-focus:text-sm peer-focus:text-gray-800"
+                >
+                  Nazwa użytkownika
+                </label>
+              </div>
+              <div className="relative mt-6">
+                <input
                   type="email"
                   name="email"
                   id="email"
-                  placeholder="Email Address"
+                  placeholder="Email"
                   className="peer mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none"
                   autoComplete="NA"
                 />
@@ -50,17 +65,18 @@ function LoginPage() {
                   type="submit"
                   className="w-full rounded-md bg-black px-3 py-4 text-white focus:bg-gray-600 focus:outline-none"
                 >
-                  Zaloguj się
+                  Zarejestruj się
                 </button>
               </div>
               <p className="text-center text-sm text-gray-500">
-                Nie posiadasz jeszcze konta?
+                Posiadasz już konto?
                 <a
                   href="#!"
                   className="font-semibold mx-1 text-gray-600 hover:underline focus:text-gray-800 focus:outline-none"
                 >
-                  Zajerestruj się
+                  Zaloguj się
                 </a>
+                .
               </p>
             </form>
           </div>
@@ -70,4 +86,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default SignUpPage;

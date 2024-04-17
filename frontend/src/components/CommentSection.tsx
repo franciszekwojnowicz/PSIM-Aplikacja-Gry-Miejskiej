@@ -96,7 +96,7 @@ function CommentSection() {
         <div className="w-full flex justify-end px-3 my-3 ">
           <input
             type="submit"
-            className="px-2.5 py-1.5 rounded-md text-white text-sm bg-blue-500 hover:bg-blue-800 "
+            className="px-2.5 py-1.5 rounded-md text-white text-sm bg-black hover:bg-blue-800 "
             value="Post Comment"
           />
         </div>
