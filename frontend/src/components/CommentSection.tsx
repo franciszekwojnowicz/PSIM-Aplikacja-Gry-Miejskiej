@@ -2,6 +2,7 @@ import React from "react";
 
 function CommentSection() {
   return (
+    // TODO: Add logic to comments
     <>
       <div className="w-fullbg-white rounded-lg border p-1 md:p-3 m-10">
         <h3 className="font-semibold p-1">Komentarze</h3>
@@ -23,7 +24,6 @@ function CommentSection() {
               </div>
             </div>
 
-            
             <div className="flex justify-between border ml-5 rounded-md">
               <div className="p-3">
                 <div className="flex gap-3 items-center">
@@ -54,7 +54,9 @@ function CommentSection() {
                   />
                   <h3 className="font-bold">barca256</h3>
                 </div>
-                <p className="text-gray-600 mt-2">Mega smacznie! I co ważne, piwko w cenie 5zł!!</p>
+                <p className="text-gray-600 mt-2">
+                  Mega smacznie! I co ważne, piwko w cenie 5zł!!
+                </p>
                 <button className="text-right text-blue-500 text-sm">
                   Odpowiedz
                 </button>
@@ -63,24 +65,24 @@ function CommentSection() {
           </div>
 
           <div className="flex justify-between border rounded-md">
-              <div className="p-3">
-                <div className="flex gap-3 items-center">
-                  <img
-                    src="https://images.immediate.co.uk/production/volatile/sites/49/2023/10/imgAIU5M7-31de98d.jpg?quality=90&crop=0px,0px,1200px,799px&resize=980,654"
-                    className="object-cover w-10 h-10 rounded-full border-2 border-blue-600  shadow-blue-600"
-                  />
-                  <h3 className="font-bold">
-                    SushiMassterr33
-                    <br />
-                  </h3>
-                </div>
-                <p className="text-gray-600 mt-2">Polecam</p>
-                <button className="text-right text-blue-500 text-sm">
-                  Odpowiedz
-                </button>
+            <div className="p-3">
+              <div className="flex gap-3 items-center">
+                <img
+                  src="https://images.immediate.co.uk/production/volatile/sites/49/2023/10/imgAIU5M7-31de98d.jpg?quality=90&crop=0px,0px,1200px,799px&resize=980,654"
+                  className="object-cover w-10 h-10 rounded-full border-2 border-blue-600  shadow-blue-600"
+                />
+                <h3 className="font-bold">
+                  SushiMassterr33
+                  <br />
+                </h3>
               </div>
+              <p className="text-gray-600 mt-2">Polecam</p>
+              <button className="text-right text-blue-500 text-sm">
+                Odpowiedz
+              </button>
             </div>
           </div>
+        </div>
 
         <div className="w-full px-3 mb-2 mt-6">
           <textarea

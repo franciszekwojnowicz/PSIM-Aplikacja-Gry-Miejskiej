@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 import ListRestarants from "../components/ListRestarants";
 import { useState } from "react";
 
-function Restarants() {
+function Restaurants() {
   const [id, setID] = useState("");
   const idAsNumber = Number(id);
   return (
@@ -33,4 +33,4 @@ function Restarants() {
   );
 }
 
-export default Restarants;
+export default Restaurants;

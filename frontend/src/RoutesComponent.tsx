@@ -5,11 +5,13 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import Restarants from "./pages/Restarants";
+import Restarants from "./pages/Restaurants";
 import NotFoundPage from "./pages/NotFoundPage";
 import RestaurantInfo from "./pages/RestaurantInfo";
+import Achivements from "./pages/Achievements";
+import LoginPage from "./pages/LoginPage";
 
-function RoutesCompomonent() {
+function RoutesComponent() {
   return (
     <>
       <Router>
@@ -17,6 +19,8 @@ function RoutesCompomonent() {
           <Route path="/" element={<Navigate to={"/restaurants"} />}></Route>
           <Route path="/restaurants" element={<Restarants />} />
           <Route path="/restaurants/info" element={<RestaurantInfo />} />
+          <Route path="/achivements" element={<Achivements />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="*" element={<NotFoundPage />}></Route>
         </Routes>
       </Router>
@@ -24,4 +28,4 @@ function RoutesCompomonent() {
   );
 }
 
-export default RoutesCompomonent;
+export default RoutesComponent;

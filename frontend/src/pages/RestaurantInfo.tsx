@@ -11,7 +11,7 @@ function RestaurantInfo() {
       <Navbar />
       <div className="max-w-screen-xl mx-auto p-5 sm:p-10 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 sm:grid-cols-1 gap-10 h-auto">
-          <div className="rounded overflow-hidden shadow-lg flex-auto">
+          <div className="rounded overflow-hidden shadow-lg flex-auto h-auto min-h-80">
             <div className="relative h-full">
               <a href="#">
                 <img
