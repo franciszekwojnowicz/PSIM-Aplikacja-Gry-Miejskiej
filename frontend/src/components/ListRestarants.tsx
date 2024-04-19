@@ -1,6 +1,3 @@
-import React from "react";
-import Star from "./icons/StarFilled";
-import Pin from "./icons/Pin";
 import Restaurant from "./Restaurant";
 
 const restarants = [
@@ -12,7 +9,7 @@ const restarants = [
 ];
 
 function ListRestarants() {
-  const listRestarants = restarants.map((restarant) => <li>{restarant}</li>);
+  // const listRestarants = restarants.map((restarant) => <li>{restarant}</li>);
   return (
     <>
       <div className="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-5">
@@ -26,6 +23,7 @@ function ListRestarants() {
             raiting={4}
             address="Plac Grunwaldzki 59, Wrocław"
             linkToMap="https://maps.app.goo.gl/7NQrNWJzETFWhP717"
+            visited={true}
           />
           <Restaurant
             name="Restauracja Bella Storia"
@@ -34,6 +32,7 @@ function ListRestarants() {
             raiting={4.5}
             address="plac Grunwaldzki 53, Wrocław"
             linkToMap="https://maps.app.goo.gl/1gT9UHEG53HinH2f6"
+            visited={true}
           />
           <Restaurant
             name="WOO THAI"
@@ -42,6 +41,7 @@ function ListRestarants() {
             raiting={4.5}
             address="Grunwaldzka 67, Wrocław"
             linkToMap="https://maps.app.goo.gl/1gT9UHEG53HinH2f6"
+            visited={false}
           />
           <Restaurant
             name="Restauracja Piwnica Świdnicka"
@@ -50,6 +50,7 @@ function ListRestarants() {
             raiting={5}
             address="Rynek Ratusz 1A, Wrocław"
             linkToMap="https://maps.app.goo.gl/HjSHjmqGaD3PQJGL6"
+            visited={false}
           />
         </div>
       </div>

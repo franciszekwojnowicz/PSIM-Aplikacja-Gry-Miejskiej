@@ -1,10 +1,9 @@
 import React from "react";
-import Navbar from "../components/Navbar";
+import { Link } from "react-router-dom";
 
 function LoginPage() {
   return (
     <>
-      <Navbar />
       <div className="relative my-16 mx-auto w-full max-w-md bg-white justify-center px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:rounded-xl sm:px-10">
         <div className="w-full">
           <div className="text-center">
@@ -55,12 +54,14 @@ function LoginPage() {
               </div>
               <p className="text-center text-sm text-gray-500">
                 Nie posiadasz jeszcze konta?
-                <a
-                  href="#!"
-                  className="font-semibold mx-1 text-gray-600 hover:underline focus:text-gray-800 focus:outline-none"
-                >
-                  Zajerestruj się
-                </a>
+                <Link to={"/signup"}>
+                  <a
+                    href="#!"
+                    className="font-semibold mx-1 text-gray-600 hover:underline focus:text-gray-800 focus:outline-none"
+                  >
+                    Zajerestruj się
+                  </a>
+                </Link>
               </p>
             </form>
           </div>

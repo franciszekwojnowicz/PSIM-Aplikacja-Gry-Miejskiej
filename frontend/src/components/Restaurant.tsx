@@ -9,6 +9,7 @@ interface Props {
   description: ReactNode;
   address: string;
   linkToMap: string;
+  visited: boolean;
 }
 
 function Restaurant({
@@ -18,21 +19,33 @@ function Restaurant({
   description,
   address,
   linkToMap,
+  visited,
 }: Props) {
   return (
     <div className="rounded overflow-hidden shadow-lg flex-auto">
       <a href="#"></a>
       <div className="relative h-60">
-        <a href="#">
+        <a href={`${visited ? "#" : ""}`}>
           <img
-            className="w-full object-cover h-full"
+            className={`w-full ${
+              visited ? "" : "saturate-0 blur-sm"
+            } object-cover  h-full`}
             src={img}
             alt="ImgRestaurant"
           />
-          <div className="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25"></div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <h2 className="text-white text-3xl font-bold">{`${
+              visited ? "" : "NIEODWIEDZONE"
+            }`}</h2>
+          </div>
+          <div
+            className={` ${
+              visited ? "hover:bg-transparent" : ""
+            } transition duration-300  absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25`}
+          ></div>
         </a>
 
-        <a href="!#">
+        <a>
           <div className="text-sm absolute top-0 right-0 bg-black px-4 text-yellow-400 rounded-full h-16 w-16 flex flex-col items-center justify-center mt-3 mr-3 transition duration-500 ease-in-out">
             <span className="font-bold">{raiting}/5</span>
             <StarFilled />
@@ -41,7 +54,7 @@ function Restaurant({
       </div>
       <div className="px-6 py-4 h-40">
         <a
-          href="#"
+          href={`${visited ? "#" : ""}`}
           className="font-semibold text-lg inline-block hover:text-indigo-600 transition duration-500 ease-in-out"
         >
           {name}
