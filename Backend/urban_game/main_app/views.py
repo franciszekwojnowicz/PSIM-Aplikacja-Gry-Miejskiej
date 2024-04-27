@@ -1,9 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .serializers import *
 from django.http import HttpResponse, JsonResponse
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from django.utils import timezone
+from django.contrib.auth import authenticate, get_user_model
+from rest_framework.authtoken.models import Token
+from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework import generics
+from django.contrib.auth.models import  User
+
+User = get_user_model() 
 # Create your views here.
 
 #simple views connection test
@@ -13,7 +21,32 @@ def test(request):
     else:
         return HttpResponse(400)
 
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def register_user(request):
+    serializer = UserSerializerRegister(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        user = User.objects.get(name=request.data['name'])
+        user.set_password(request.data['password'])
+        user.save()
+        token = Token.objects.create(user=user)
+        return Response({"token": token.key, "user": serializer.data})
+    else:
+        return Response(serializer.errors)
 
+@api_view(['POST'])  
+@permission_classes([AllowAny])
+def login_user(request):
+    name = request.data.get('name')
+    password = request.data.get('password')
+    #user = get_object_or_404(User, name=request.data['name'])
+
+    user = authenticate(name=name, password=password)
+    if user:
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({"token": token.key})
+    return Response(status=400, data="Invalid credentials")
     
 @api_view(['GET'])
 def viewAllRestaurants(request):
@@ -34,10 +67,11 @@ def viewAllAchivements(request):
         return Response(status=400, data=repr(e))
 
 @api_view(['GET'])
-def viewAllUsers(request):
+@permission_classes([AllowAny]) # do testow
+def viewAllUsers(request): 
     try:
         users_database=User.objects.all()
-        users_serializerd=UserSerializer(users_database,many=True)
+        users_serializerd=UserSerializerAll(users_database,many=True)
         return JsonResponse(users_serializerd.data,safe=False)
     except Exception as e:
         return Response(status=400, data=repr(e))
@@ -140,6 +174,3 @@ def addUser(request):
         return Response(user_serialized.data,status=201)
     except Exception as e:
         return Response(status=400, data=repr(e))
-
-
-
