@@ -10,6 +10,7 @@ urlpatterns = [
     path('viewUserVisited_Restaurants', views.viewUserVisited_Restaurants),
     path('addVisited_Restaurant', views.addVisited_Restaurant),
     path('addComment', views.addComment),
-    path('addUser', views.addUser),
-    path('viewCommentsForRestaurant',views.viewCommentsForRestaurant)
+    path('viewCommentsForRestaurant',views.viewCommentsForRestaurant),
+    path('register/', views.register_user), 
+    path('login/', views.login_user), 
 ]
