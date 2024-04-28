@@ -61,13 +61,12 @@ def viewAllRestaurants(request):
 def viewAllAchivements(request):
     try:
         achivements_database=Achivement.objects.all()
-        svhivements_serialized=AchivementSerializer(achivements_database,many=True)
-        return JsonResponse(svhivements_serialized.data,safe=False)
+        achivements_serialized=AchivementSerializer(achivements_database,many=True)
+        return JsonResponse(achivements_serialized.data,safe=False)
     except Exception as e:
         return Response(status=400, data=repr(e))
 
 @api_view(['GET'])
-@permission_classes([AllowAny]) # do testow
 def viewAllUsers(request): 
     try:
         users_database=User.objects.all()
