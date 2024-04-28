@@ -40,9 +40,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     password = models.CharField(max_length=255,validators=[MinLengthValidator(8)])
     USERNAME_FIELD = "name"
     REQUIRED_FIELDS = ['email','password']
-    points = models.IntegerField(null=True,blank=True)
+    points = models.IntegerField(default=0)
     is_staff = models.BooleanField(default=False)
     objects = CustomUserManager()
+    #image = models.ImageField(upload_to ='uploads/',blank=True,null=True)
 
     def save(self, *args, **kwargs):
         self.full_clean()
@@ -55,7 +56,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Restaurant(models.Model):
     name = models.CharField(max_length=60,unique=True,validators=[MinLengthValidator(5)])
-    type = models.CharField(max_length=30,unique=True,validators=[MinLengthValidator(5)])
+    type = models.CharField(max_length=30,validators=[MinLengthValidator(5)])
     position = models.IntegerField()
     unlock_code = models.IntegerField()
     class Meta:

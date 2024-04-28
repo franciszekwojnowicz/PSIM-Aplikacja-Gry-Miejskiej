@@ -50,3 +50,11 @@ class CommentUserNameSerializer(serializers.ModelSerializer):
     def get_user(self,obj):
         return obj.user.name
     
+class Visited_Restaurants_TypeSerializer(serializers.ModelSerializer):
+    type = serializers.SerializerMethodField("get_type")
+    class Meta:
+        model = Visited_Restaurant
+        fields = ['id', 'restaurant', 'type'] 
+    def get_type(self,obj):
+        return obj.restaurant.type
+    

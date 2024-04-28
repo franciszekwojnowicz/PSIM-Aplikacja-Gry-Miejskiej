@@ -10,7 +10,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import generics
 from django.contrib.auth.models import  User
-
+from django.db import IntegrityError
 User = get_user_model() 
 # Create your views here.
 
@@ -138,7 +138,62 @@ def addVisited_Restaurant(request):
         visited_restaurant.full_clean()
         visited_restaurant.save()
         #tutaj można wstawić jakieś warunki do achivementów, np sprawdza ile restauracji danego typu odwiedzono i dodaje inlocked_achivement do usera
-        return Response(status=200)
+        visited_restaurant_database = Visited_Restaurant.objects.filter(user=user)
+        visited_types_serialized = Visited_Restaurants_TypeSerializer(visited_restaurant_database,many=True)
+        visited_types = visited_types_serialized.data
+        sushi_count = 0
+        pizza_count = 0
+        kebab_count = 0
+        for visited_type in visited_types:
+            if visited_type["type"]=="sushi":
+                sushi_count+=1
+            if visited_type["type"]=="pizza":
+                pizza_count+=1
+            if visited_type["type"]=="kebab":
+                kebab_count+=1
+
+        user_database=User.objects.get(id=user)
+        user_database.points += 1
+        if sushi_count>1:
+            achivement_database=Achivement.objects.get(name="sushi beginer")
+            new_achivement=Unlocked_Achivement(user=user_database,achivement=achivement_database)
+            if Unlocked_Achivement.objects.filter(user=user_database,achivement=achivement_database).exists() == False:
+                new_achivement.save()
+                user_database.points += 10
+        if sushi_count>5:
+            achivement_database=Achivement.objects.get(name="sushi master")
+            new_achivement=Unlocked_Achivement(user=user_database,achivement=achivement_database)
+            if Unlocked_Achivement.objects.filter(user=user_database,achivement=achivement_database).exists() == False:
+                new_achivement.save()
+                user_database.points += 30
+
+        if pizza_count>1:
+            achivement_database=Achivement.objects.get(name="pizza beginer")
+            new_achivement=Unlocked_Achivement(user=user_database,achivement=achivement_database)
+            if Unlocked_Achivement.objects.filter(user=user_database,achivement=achivement_database).exists() == False:
+                new_achivement.save()
+                user_database.points += 10
+        if pizza_count>5:
+            achivement_database=Achivement.objects.get(name="pizza master")
+            new_achivement=Unlocked_Achivement(user=user_database,achivement=achivement_database)
+            if Unlocked_Achivement.objects.filter(user=user_database,achivement=achivement_database).exists() == False:
+                new_achivement.save()
+                user_database.points += 30
+
+        if kebab_count>1:
+            achivement_database=Achivement.objects.get(name="kebab beginer")
+            new_achivement=Unlocked_Achivement(user=user_database,achivement=achivement_database)
+            if Unlocked_Achivement.objects.filter(user=user_database,achivement=achivement_database).exists() == False:
+                new_achivement.save()
+                user_database.points += 10
+        if kebab_count>5:
+            achivement_database=Achivement.objects.get(name="kebab master")
+            new_achivement=Unlocked_Achivement(user=user_database,achivement=achivement_database)
+            if Unlocked_Achivement.objects.filter(user=user_database,achivement=achivement_database).exists() == False:
+                new_achivement.save()
+                user_database.points += 30
+        user_database.save()
+        return Response(visited_types_serialized.data,status=200)
     except Exception as e:
         return Response(status=400, data=repr(e))
 
@@ -171,5 +226,33 @@ def addUser(request):
         user.save()
         user_serialized=UserSerializer(user)
         return Response(user_serialized.data,status=201)
+    except Exception as e:
+        return Response(status=400, data=repr(e))
+    
+@api_view(['GET'])    
+@permission_classes([AllowAny])
+def addDefaultAchivements(request):
+    try:
+        new_achivement = Achivement(name="sushi beginer", requirements="odwiedź co najmniej 2 restauracje sushi", points=10)
+        new_achivement.save()
+
+        new_achivement = Achivement(name="sushi master", requirements="odwiedź co najmniej 5 restauracji sushi", points=30)
+        new_achivement.save()
+
+        new_achivement = Achivement(name="pizza beginer", requirements="odwiedź co najmniej 2 pizzerie", points=10)
+        new_achivement.save()
+
+        new_achivement = Achivement(name="pizza master", requirements="odwiedź co najmniej 5 pizzerii", points=30)
+        new_achivement.save()
+
+        new_achivement = Achivement(name="kebab beginer", requirements="odwiedź co najmniej 2 kebaby", points=10)
+        new_achivement.save()
+
+        new_achivement = Achivement(name="kebab master", requirements="odwiedź co najmniej 5 kebabów", points=30)
+        new_achivement.save()
+
+        achivement_database=Achivement.objects.all()
+        achivement_serialized=AchivementSerializer(achivement_database,many=True)
+        return Response(achivement_serialized.data,status=201)
     except Exception as e:
         return Response(status=400, data=repr(e))

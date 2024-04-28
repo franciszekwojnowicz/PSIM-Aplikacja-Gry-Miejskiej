@@ -12,5 +12,6 @@ urlpatterns = [
     path('addComment', views.addComment),
     path('viewCommentsForRestaurant',views.viewCommentsForRestaurant),
     path('register/', views.register_user), 
-    path('login/', views.login_user), 
+    path('login/', views.login_user),
+    path('addDefaultAchivements', views.addDefaultAchivements), 
 ]
