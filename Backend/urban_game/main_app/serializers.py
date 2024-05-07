@@ -27,6 +27,11 @@ class UserSerializerAll(serializers.ModelSerializer):
         model = User
         fields = '__all__'
 
+class UserSerializerStats(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id','name', 'points']
+
 class Unlocked_AchivementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Unlocked_Achivement

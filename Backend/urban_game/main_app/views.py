@@ -70,7 +70,7 @@ def viewAllAchivements(request):
 def viewAllUsers(request): 
     try:
         users_database=User.objects.all()
-        users_serializerd=UserSerializerAll(users_database,many=True)
+        users_serializerd=UserSerializerStats(users_database,many=True)
         return JsonResponse(users_serializerd.data,safe=False)
     except Exception as e:
         return Response(status=400, data=repr(e))
