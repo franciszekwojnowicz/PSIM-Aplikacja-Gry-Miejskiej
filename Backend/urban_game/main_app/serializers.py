@@ -16,10 +16,21 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['name', 'points']
 
+class UserSerializerRegister(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['name', 'email', 'password']
+
+
 class UserSerializerAll(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
+
+class UserSerializerStats(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id','name', 'points']
 
 class Unlocked_AchivementSerializer(serializers.ModelSerializer):
     class Meta:
@@ -43,4 +54,12 @@ class CommentUserNameSerializer(serializers.ModelSerializer):
         fields = ['id','text','date','name', 'restaurant', 'to_comment'] 
     def get_user(self,obj):
         return obj.user.name
+    
+class Visited_Restaurants_TypeSerializer(serializers.ModelSerializer):
+    type = serializers.SerializerMethodField("get_type")
+    class Meta:
+        model = Visited_Restaurant
+        fields = ['id', 'restaurant', 'type'] 
+    def get_type(self,obj):
+        return obj.restaurant.type
     
