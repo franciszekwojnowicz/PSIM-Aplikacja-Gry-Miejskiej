@@ -59,6 +59,7 @@ class Restaurant(models.Model):
     type = models.CharField(max_length=30,validators=[MinLengthValidator(5)])
     position = models.IntegerField()
     unlock_code = models.IntegerField()
+    description = models.TextField(default="This is a restaurant")
     class Meta:
         db_table = 'Restaurant'
 
