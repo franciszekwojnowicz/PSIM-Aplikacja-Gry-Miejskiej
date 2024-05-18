@@ -4,17 +4,14 @@ from rest_framework import serializers
 class RestaurantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Restaurant
-        fields = ['name', 'type', 'position', 'unlock_code']
+        fields = ['name', 'type', 'position', 'description']
+
 
 class AchivementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Achivement
         fields = '__all__'
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['name', 'points']
 
 class UserSerializerRegister(serializers.ModelSerializer):
     class Meta:
@@ -22,10 +19,10 @@ class UserSerializerRegister(serializers.ModelSerializer):
         fields = ['name', 'email', 'password']
 
 
-class UserSerializerAll(serializers.ModelSerializer):
+class UserSerializerAccount(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ['name', 'email', 'is_superuser', 'points']
 
 class UserSerializerStats(serializers.ModelSerializer):
     class Meta:
