@@ -1,16 +1,7 @@
 import React, { ReactNode } from "react";
 import Pin from "./icons/Pin";
 import StarFilled from "./icons/StarFilled";
-
-interface Props {
-  img: string;
-  raiting: number;
-  name: string;
-  description: ReactNode;
-  address: string;
-  linkToMap: string;
-  visited: boolean;
-}
+import { RestaurantModel } from "../types";
 
 function Restaurant({
   img,
@@ -20,7 +11,7 @@ function Restaurant({
   address,
   linkToMap,
   visited,
-}: Props) {
+}: RestaurantModel) {
   return (
     <div className="rounded overflow-hidden shadow-lg flex-auto">
       <a href="#"></a>
