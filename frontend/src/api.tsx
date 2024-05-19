@@ -1,5 +1,10 @@
 import axios, { AxiosError } from "axios";
-import { AchievementAPI, NewRestaurant, RestaurantsAPI } from "./types";
+import {
+  AchievementAPI,
+  NewRestaurant,
+  RestaurantInfoPageModel,
+  RestaurantsAPI,
+} from "./types";
 
 const API_URL = "http://localhost:8000/api";
 
@@ -36,8 +41,22 @@ export const getAchivements = async (): Promise<AchievementAPI | null> => {
     return response.data;
   } catch (error) {
     console.error("Error fetching items", error);
-    console.log(`${localStorage.getItem("userID")}`);
+    return null;
+  }
+};
 
+export const getRestaurantInfo = async (
+  restaurantID: number
+): Promise<RestaurantInfoPageModel | null> => {
+  try {
+    setAuthToken();
+    const response = await axios.get<RestaurantInfoPageModel>(
+      `${API_URL}/restaurant/${restaurantID}/`
+    );
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching restaurantInfo", error);
     return null;
   }
 };

@@ -255,11 +255,7 @@ def viewRestaurant(request,restaurant_id):
             base_comments_database = Comment.objects.filter(restaurant=restaurant_id,to_comment__isnull=True)
             base_comments_serialized=CommentUserNameSerializer(base_comments_database,many=True)
             base_comments=base_comments_serialized.data
-            # dla każdego komentarza nie będącego podkomentarzem doklejamy jego podkomentarze
-            for base_comment in base_comments:
-                subcomments_database = Comment.objects.filter(restaurant=restaurant_id,to_comment=base_comment["id"]).order_by('date')
-                subcomments_serialized = CommentUserNameSerializer(subcomments_database,many=True)
-                base_comment["subcomments"]=subcomments_serialized.data
+            getSubComments(base_comments, restaurant_id)
             # combine info and comments
             restaurant_and_comments={}
             restaurant_and_comments["info"]=restaurant
@@ -315,3 +311,14 @@ def addDefaultAchivements(request):
         return Response(achivement_serialized.data,status=201)
     except Exception as e:
         return Response(status=400, data=repr(e))
+    
+
+def getSubComments(data, restaurant_id):
+    # recursion function to get all subcomments
+    for base_comment in data:
+        subcomments_database = Comment.objects.filter(restaurant=restaurant_id,to_comment=base_comment["id"]).order_by('date')
+        subcomments_serialized = CommentUserNameSerializer(subcomments_database,many=True)
+        base_comment["subcomments"]=subcomments_serialized.data
+        getSubComments(subcomments_serialized.data, restaurant_id)
+
+    return

@@ -6,6 +6,7 @@ export interface RestaurantModel {
   address: string;
   linkToMap: string;
   visited: boolean;
+  restaurantID: number;
 }
 export interface RestaurantModelAPI {
   id: number;
@@ -13,6 +14,21 @@ export interface RestaurantModelAPI {
   type: string;
   position: number;
   description: string;
+}
+
+export interface RestaurantInfoModel {
+  name: string;
+  type: string;
+  position: number;
+  description: string;
+  //raiting: number
+  //address: string
+  //link_to_address: string
+}
+
+export interface RestaurantInfoPageModel {
+  info: RestaurantInfoModel;
+  comments: CommentModel[];
 }
 
 export interface RestaurantsAPI {
@@ -38,4 +54,14 @@ export interface AchievementModel {
 export interface AchievementAPI {
   unlocked: AchievementModel[];
   locked: AchievementModel[];
+}
+
+export interface CommentModel {
+  id: string;
+  text: string;
+  date: Date;
+  name: string;
+  restaurant: number;
+  to_comment: number | null;
+  subcomments: CommentModel[];
 }

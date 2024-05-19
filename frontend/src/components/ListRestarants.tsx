@@ -47,6 +47,7 @@ function ListRestarants() {
                 address="Plac Grunwaldzki 59, Wrocław"
                 linkToMap="https://maps.app.goo.gl/7NQrNWJzETFWhP717"
                 visited={true}
+                restaurantID={restaurant.id}
                 key={restaurant.id}
               />
             ))
@@ -65,6 +66,7 @@ function ListRestarants() {
                 address="Plac Grunwaldzki 59, Wrocław"
                 linkToMap="https://maps.app.goo.gl/7NQrNWJzETFWhP717"
                 visited={false}
+                restaurantID={restaurant.id}
                 key={restaurant.id}
               />
             ))

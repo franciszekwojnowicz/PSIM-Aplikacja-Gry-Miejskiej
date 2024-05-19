@@ -20,10 +20,12 @@ function RoutesComponent() {
           <Route path="/" element={<Navigate to={"/restaurants"} />}></Route>
           <Route path="/restaurants" element={<Restarants />} />
           <Route path="/restaurants/info" element={<RestaurantInfo />} />
+          <Route path="/:id/restaurants" element={<RestaurantInfo />} />
           <Route path="/achievements" element={<Achievements />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="*" element={<NotFoundPage />}></Route>
+          
         </Routes>
       </Router>
     </>
