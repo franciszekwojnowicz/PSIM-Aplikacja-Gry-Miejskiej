@@ -81,7 +81,7 @@ export const handleSignUp = async (
 
 export const postCodeRestaurant = async (
   code: number
-): Promise<NewRestaurant[] | null> => {
+): Promise<NewRestaurant | null> => {
   try {
     setAuthToken();
     const response = await axios.post(

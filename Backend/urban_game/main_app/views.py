@@ -174,6 +174,7 @@ def viewUserRestaurants(request, user_id=None):
             visited_restaurant=Visited_Restaurant(user=user_database,restaurant=restaurant_database)
             visited_restaurant.full_clean()
             visited_restaurant.save()
+            respone_data = Visited_Restaurants_TypeSerializer(visited_restaurant)
             #tutaj można wstawić jakieś warunki do achivementów, np sprawdza ile restauracji danego typu odwiedzono i dodaje inlocked_achivement do usera
             visited_restaurant_database = Visited_Restaurant.objects.filter(user=user)
             visited_types_serialized = Visited_Restaurants_TypeSerializer(visited_restaurant_database,many=True)
@@ -231,7 +232,7 @@ def viewUserRestaurants(request, user_id=None):
                     new_achivement.save()
                     user_database.points += 30
             user_database.save()
-            return Response(visited_types_serialized.data,status=200)
+            return Response(respone_data.data,status=200)
         except Exception as e:
             return Response(status=400, data=repr(e))
         

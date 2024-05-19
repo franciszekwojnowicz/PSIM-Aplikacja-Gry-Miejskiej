@@ -9,12 +9,16 @@ function Restaurants() {
   const [newTitle, setnewTitle] = useState("");
   const [newType, setnewType] = useState("");
   const [popOn, setPopOn] = useState(false);
+  const [errorCode, setErrorCode] = useState(false);
 
   return (
     <>
       {popOn && (
         <PopMessageNewRestaurant
-          onClose={() => setPopOn(false)}
+          onClose={() => {
+            setPopOn(false);
+            if (!errorCode) window.location.href = "/restaurants/";
+          }}
           title={newTitle}
           message={newType}
         />
@@ -27,11 +31,15 @@ function Restaurants() {
             onClick={async () => {
               const data = await postCodeRestaurant(Number(pass));
               if (data) {
-                setnewTitle("Resturacja \"" + data[0].nameRestaurant + "\" została dodana!");
-                setnewType("Typ restauracji: " + data[0].type);
+                setnewTitle(
+                  'Resturacja "' + data.nameRestaurant + '" została dodana!'
+                );
+                setnewType("Typ restauracji: " + data.type);
+                setErrorCode(false);
               } else {
                 setnewTitle("Błędny kod!");
                 setnewType("");
+                setErrorCode(true);
               }
               setPopOn(true);
             }}
