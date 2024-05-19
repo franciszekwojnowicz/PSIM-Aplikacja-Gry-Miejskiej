@@ -19,3 +19,10 @@ export interface RestaurantsAPI {
   unlocked: RestaurantModelAPI[];
   locked: RestaurantModelAPI[];
 }
+
+export interface NewRestaurant {
+  id: number;
+  restaurant: number;
+  nameRestaurant: string;
+  type: string;
+}

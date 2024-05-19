@@ -168,7 +168,7 @@ def viewUserRestaurants(request, user_id=None):
     elif request.method == "POST":
         try:
             code = request.data.get('code')
-            user = request.data.get('user')
+            user = user_id
             restaurant_database=Restaurant.objects.get(unlock_code=code)
             user_database=User.objects.get(id=user)
             visited_restaurant=Visited_Restaurant(user=user_database,restaurant=restaurant_database)

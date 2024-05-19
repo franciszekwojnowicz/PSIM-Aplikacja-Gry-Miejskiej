@@ -1,5 +1,6 @@
 import axios from "axios";
-import { RestaurantsAPI } from "./types";
+import { NewRestaurant, RestaurantsAPI } from "./types";
+import Restaurant from "./components/Restaurant";
 
 const API_URL = "http://localhost:8000/api";
 
@@ -63,17 +64,21 @@ export const handleSignUp = async (
   }
 };
 
-// export const postCodeRestaurant = async (code: number) => {
-//   try {
-//     setAuthToken();
-//     const response = await axios.post(`${API_URL}/register/`, {
-//       name: name,
-//       password: password,
-//     });
-//     const token = response.data.token;
-//     localStorage.setItem("token", token);
-//     window.location.href = "/restaurants/";
-//   } catch (error) {
-//     console.log("ERROR LOGIN");
-//   }
-// };
+export const postCodeRestaurant = async (
+  code: number
+): Promise<NewRestaurant[] | null> => {
+  try {
+    setAuthToken();
+    const response = await axios.post(
+      `${API_URL}/user/${localStorage.getItem("userID")}/restaurants/`,
+      {
+        code: code,
+      }
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};

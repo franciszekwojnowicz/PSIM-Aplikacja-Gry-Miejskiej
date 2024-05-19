@@ -54,9 +54,12 @@ class CommentUserNameSerializer(serializers.ModelSerializer):
     
 class Visited_Restaurants_TypeSerializer(serializers.ModelSerializer):
     type = serializers.SerializerMethodField("get_type")
+    nameRestaurant = serializers.SerializerMethodField("get_name")
     class Meta:
         model = Visited_Restaurant
-        fields = ['id', 'restaurant', 'type'] 
+        fields = ['id', 'restaurant', 'nameRestaurant', 'type'] 
     def get_type(self,obj):
         return obj.restaurant.type
+    def get_name(self,obj):
+        return obj.restaurant.name
     

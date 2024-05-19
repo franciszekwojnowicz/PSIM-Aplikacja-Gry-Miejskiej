@@ -31,7 +31,6 @@ function ListRestarants() {
     return <div>Nie znaleziono restauracji;/</div>;
   }
 
-  console.log(restaurants);
   return (
     <>
       <div className="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-5">
