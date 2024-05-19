@@ -27,9 +27,15 @@ export interface NewRestaurant {
   type: string;
 }
 
-export interface Achivements {
+export interface AchievementModel {
   id: number;
   name: string;
   requirements: string;
   points: number;
+  isGain: boolean;
+}
+
+export interface AchievementAPI {
+  unlocked: AchievementModel[];
+  locked: AchievementModel[];
 }

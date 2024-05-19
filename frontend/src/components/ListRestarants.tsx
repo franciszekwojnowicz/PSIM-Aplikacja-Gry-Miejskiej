@@ -54,7 +54,6 @@ function ListRestarants() {
             <p>Error</p>
           )}
           {restaurants ? (
-            restaurants &&
             restaurants.locked.map((restaurant) => (
               <Restaurant
                 name={restaurant.name}

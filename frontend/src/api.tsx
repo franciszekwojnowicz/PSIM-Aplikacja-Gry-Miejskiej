@@ -1,6 +1,5 @@
 import axios from "axios";
-import { Achivements, NewRestaurant, RestaurantsAPI } from "./types";
-import Restaurant from "./components/Restaurant";
+import { AchievementAPI, NewRestaurant, RestaurantsAPI } from "./types";
 
 const API_URL = "http://localhost:8000/api";
 
@@ -27,16 +26,18 @@ export const getRestaurants = async (): Promise<RestaurantsAPI | null> => {
   }
 };
 
-export const getAchivements = async (): Promise<Achivements | null> => {
+export const getAchivements = async (): Promise<AchievementAPI | null> => {
   try {
     setAuthToken();
-    const response = await axios.get<Achivements>(
-      `${API_URL}/user/${localStorage.getItem("userID")}/achivements/`
+    const response = await axios.get<AchievementAPI>(
+      `${API_URL}/user/${localStorage.getItem("userID")}/achievements/`
     );
     console.log(response);
     return response.data;
   } catch (error) {
     console.error("Error fetching items", error);
+    console.log(`${localStorage.getItem("userID")}`);
+
     return null;
   }
 };

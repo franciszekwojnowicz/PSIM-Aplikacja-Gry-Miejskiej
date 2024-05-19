@@ -8,7 +8,7 @@ function Check() {
         fill="none"
         viewBox="0 0 24 24"
         strokeWidth={4.5}
-        stroke="currentColor"
+        stroke="green"
         className="w-7 h-7"
       >
         <path

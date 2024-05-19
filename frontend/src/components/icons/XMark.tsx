@@ -5,10 +5,10 @@ function XMark() {
     <>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        fill="none"
+        fill="red"
         viewBox="0 0 24 24"
         strokeWidth={4.5}
-        stroke="currentColor"
+        stroke="red"
         className="w-7 h-7"
       >
         <path
