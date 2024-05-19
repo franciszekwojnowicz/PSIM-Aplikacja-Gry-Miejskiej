@@ -4,7 +4,7 @@ from rest_framework import serializers
 class RestaurantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Restaurant
-        fields = ['name', 'type', 'position', 'description']
+        fields = ['id', 'name', 'type', 'position', 'description']
 
 
 class AchivementSerializer(serializers.ModelSerializer):

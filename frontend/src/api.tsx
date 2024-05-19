@@ -12,7 +12,7 @@ export const setAuthToken = (): void => {
   }
 };
 
-export const getRestaurants = async (): Promise<RestaurantsAPI | null> => {
+export const getRestaurants = async (): Promise<RestaurantsAPI> => {
   try {
     setAuthToken();
     const response = await axios.get<RestaurantsAPI>(
@@ -22,7 +22,7 @@ export const getRestaurants = async (): Promise<RestaurantsAPI | null> => {
     return response.data;
   } catch (error) {
     console.error("Error fetching items", error);
-    return null;
+    throw error;
   }
 };
 

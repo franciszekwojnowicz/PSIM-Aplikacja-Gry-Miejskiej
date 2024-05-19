@@ -7,12 +7,15 @@ export interface RestaurantModel {
   linkToMap: string;
   visited: boolean;
 }
+export interface RestaurantModelAPI {
+  id: number;
+  name: string;
+  type: string;
+  position: number;
+  description: string;
+}
 
 export interface RestaurantsAPI {
-  unlocked: {
-    restaurants: RestaurantModel[];
-  };
-  locked: {
-    restaurants: RestaurantModel[];
-  };
+  unlocked: RestaurantModelAPI[];
+  locked: RestaurantModelAPI[];
 }
