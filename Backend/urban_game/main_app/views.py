@@ -25,9 +25,9 @@ def register_user(request):
         user.set_password(request.data['password'])
         user.save()
         token = Token.objects.create(user=user)
-        return Response({"token": token.key, "user": serializer.data})
+        return Response({"token": token.key, "userID":  user.id})
     else:
-        return Response(serializer.errors)
+        return Response(serializer.errors, 404)
 
 @api_view(['POST'])  
 @permission_classes([AllowAny])
@@ -39,7 +39,7 @@ def login_user(request):
     user = authenticate(name=name, password=password)
     if user:
         token, created = Token.objects.get_or_create(user=user)
-        return Response({"token": token.key})
+        return Response({"token": token.key, "userID": user.id})
     return Response(status=400, data="Invalid credentials")
     
 @api_view(['GET']) ## UNUSED replaced by viewUserVisited_Restaurants()
@@ -143,8 +143,8 @@ def viewUserRestaurants(request, user_id=None):
     # show visited restaurants for user
     if request.method == "GET":
         try:
-            id = user_id
-            visited_restaurant_database=Visited_Restaurant.objects.filter(user=id)
+            user = User.objects.get(id = user_id)
+            visited_restaurant_database=Visited_Restaurant.objects.filter(user=user)
             visited_restaurant_serialized=Visited_RestaurantSerializer(visited_restaurant_database,many=True)
             visited_restaurants=visited_restaurant_serialized.data
             restaurant_id=[]
@@ -160,6 +160,8 @@ def viewUserRestaurants(request, user_id=None):
             restaurant_serialized["unlocked"]=restaurants_unlocked_serialized.data
             restaurant_serialized["locked"]=restaurants_locked_serialized.data
             return Response(restaurant_serialized,status=200)
+        except User.DoesNotExist as e:
+            return Response(status=404, data=repr(e))
         except Exception as e:
             return Response(status=400, data=repr(e))
     # add restaurant to visited restaurants

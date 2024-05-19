@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import Restaurant from "./Restaurant";
-import { getRestaurants, setAuthToken } from "../api";
+import { getRestaurants } from "../api";
 import { RestaurantsAPI } from "../types";
 
 function ListRestarants() {
-  const [restaurants, setRestaurants] = useState<RestaurantsAPI>();
+  const [restaurants, setRestaurants] = useState<RestaurantsAPI | null>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ function ListRestarants() {
   }
 
   if (!restaurants) {
-    return <div>No data found.</div>;
+    return <div>Nie znaleziono restauracji;/</div>;
   }
 
   console.log(restaurants);

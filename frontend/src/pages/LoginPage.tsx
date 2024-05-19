@@ -58,9 +58,11 @@ function LoginPage() {
                 Zaloguj się
               </button>
             </div>
-            <p className="text-center text-sm text-gray-500">
-              Nie posiadasz jeszcze konta?
-            </p>
+            <Link to={"/signup"}>
+              <p className="text-center text-sm text-gray-500">
+                Nie posiadasz jeszcze konta?
+              </p>
+            </Link>
           </div>
         </div>
       </div>
