@@ -26,3 +26,10 @@ export interface NewRestaurant {
   nameRestaurant: string;
   type: string;
 }
+
+export interface Achivements {
+  id: number;
+  name: string;
+  requirements: string;
+  points: number;
+}

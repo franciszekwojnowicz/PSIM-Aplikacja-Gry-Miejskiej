@@ -1,5 +1,5 @@
 import axios from "axios";
-import { NewRestaurant, RestaurantsAPI } from "./types";
+import { Achivements, NewRestaurant, RestaurantsAPI } from "./types";
 import Restaurant from "./components/Restaurant";
 
 const API_URL = "http://localhost:8000/api";
@@ -18,6 +18,20 @@ export const getRestaurants = async (): Promise<RestaurantsAPI | null> => {
     setAuthToken();
     const response = await axios.get<RestaurantsAPI>(
       `${API_URL}/user/${localStorage.getItem("userID")}/restaurants/`
+    );
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching items", error);
+    return null;
+  }
+};
+
+export const getAchivements = async (): Promise<Achivements | null> => {
+  try {
+    setAuthToken();
+    const response = await axios.get<Achivements>(
+      `${API_URL}/user/${localStorage.getItem("userID")}/achivements/`
     );
     console.log(response);
     return response.data;
