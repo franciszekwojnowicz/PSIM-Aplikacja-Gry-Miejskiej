@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { AchievementAPI, NewRestaurant, RestaurantsAPI } from "./types";
 
 const API_URL = "http://localhost:8000/api";
@@ -54,7 +54,8 @@ export const handleLogin = async (name: string, password: string) => {
     localStorage.setItem("userID", userID);
     window.location.href = "/restaurants/";
   } catch (error) {
-    console.log("ERROR LOGIN");
+    console.log(error);
+    throw error;
   }
 };
 

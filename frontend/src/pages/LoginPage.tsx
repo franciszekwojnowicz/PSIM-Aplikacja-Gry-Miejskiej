@@ -4,6 +4,8 @@ import { handleLogin } from "../api";
 function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isError, setIsError] = useState(false);
+
   return (
     <>
       <div className="relative my-16 mx-auto w-full max-w-md bg-white justify-center px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:rounded-xl sm:px-10">
@@ -49,11 +51,23 @@ function LoginPage() {
                 Hasło
               </label>
             </div>
+            {isError && (
+              <div className=" text-red-600 text-center">
+                {" "}
+                Podano nieprawidłowy login lub hasło
+              </div>
+            )}
             <div className="my-6">
               <button
                 type="submit"
                 className="w-full rounded-md bg-black px-3 py-4 text-white focus:bg-gray-600 focus:outline-none"
-                onClick={() => handleLogin(username, password)}
+                onClick={async () => {
+                  try {
+                    await handleLogin(username, password);
+                  } catch (error) {
+                    setIsError(true);
+                  }
+                }}
               >
                 Zaloguj się
               </button>
