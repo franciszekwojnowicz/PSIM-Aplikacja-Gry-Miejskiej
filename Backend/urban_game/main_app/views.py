@@ -71,7 +71,7 @@ def viewAllUsers(request):
     except Exception as e:
         return Response(status=400, data=repr(e))
 
-@api_view(['GET','PATCH'])  
+@api_view(['GET','PATCH'])
 def viewUser(request,user_id):
     """View that:
     
@@ -97,14 +97,17 @@ def viewUser(request,user_id):
                 return Response(status=400, data=repr(e))
         if request.method == "PATCH":
             try:
-                # EDIT USER FIELDS - not implemented
-                request.data.get("name")
-                request.data.get("email")
-                request.data.get("password")
-
-                return Response(status=200,data="not implemented")
+                user_serialized = UserSerializerAccountPatch(user_database, data=request.data, partial=True)
+                if user_serialized.is_valid():
+                    user_serialized.save()
+                    if 'password' in request.data:
+                        user_database.set_password(request.data['password'])
+                        user_database.save()
+                    return Response(user_serialized.data, status=200)
+                else:
+                    return Response(user_serialized.errors, status=400)
             except Exception as e:
-                return Response(status=400,data=repr(e))
+                return Response(status=400, data=repr(e))
     else: 
         return Response(status=401, data="Unauthorized Access")
 
