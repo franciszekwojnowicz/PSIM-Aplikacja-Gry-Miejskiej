@@ -60,6 +60,15 @@ class Restaurant(models.Model):
     position = models.IntegerField()
     unlock_code = models.IntegerField()
     description = models.TextField(default="This is a restaurant")
+    # new additional fields
+
+    image = models.URLField(default="https://media.istockphoto.com/id/1079901206/photo/3d-render-of-luxury-restaurant-interior.jpg?s=612x612&w=0&k=20&c=kKj5Uw0ZpuWKX8ZX6eXuKGc1sP86fMjIbZJFbWl9-ZM=")
+    map_link = models.URLField(default="https://www.google.com/maps/@51.1117445,17.0595713,19.4z?authuser=0&entry=ttu")
+    rating_average = models.FloatField(validators=[MinValueValidator(1),MaxValueValidator(5)], default=0.0)
+    # address
+    city = models.CharField(max_length=40,validators=[MinLengthValidator(2)],default="Wrocław")
+    street = models.CharField(max_length=40,validators=[MinLengthValidator(2)],default="Plac Grunwaldzki")
+    street_number = models.IntegerField(default=4)
     class Meta:
         db_table = 'Restaurant'
 

@@ -2,9 +2,12 @@ from .models import *
 from rest_framework import serializers
 
 class RestaurantSerializer(serializers.ModelSerializer):
+    address = serializers.SerializerMethodField()
     class Meta:
         model = Restaurant
-        fields = ['id', 'name', 'type', 'position', 'description']
+        fields = ['id', 'name', 'type', 'address', 'description', 'image', 'map_link', 'rating_average']
+    def get_address(self, obj):
+        return '{} {} , {}'.format(obj.street, obj.street_number, obj.city)
 
 
 class AchivementSerializer(serializers.ModelSerializer):
