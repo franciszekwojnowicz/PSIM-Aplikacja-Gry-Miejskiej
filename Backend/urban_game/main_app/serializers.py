@@ -30,7 +30,7 @@ class UserSerializerAccount(serializers.ModelSerializer):
 class UserSerializerStats(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id','name', 'points']
+        fields = ['id','name', 'points', 'image']
 
 class Unlocked_AchivementSerializer(serializers.ModelSerializer):
     class Meta:
@@ -68,4 +68,9 @@ class Visited_Restaurants_TypeSerializer(serializers.ModelSerializer):
         return obj.restaurant.type
     def get_name(self,obj):
         return obj.restaurant.name
+    
+class RatingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rating
+        fields = '__all__'
     

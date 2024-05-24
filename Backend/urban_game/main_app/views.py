@@ -11,6 +11,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import generics
 from django.contrib.auth.models import  User
 from django.db import IntegrityError
+from django.db.models import Avg
 User = get_user_model() 
 # Create your views here.
 
@@ -212,21 +213,70 @@ def addComment(request,restaurant_id):
     """View that:
      
     for POST - add a comment """
+    # security user token must match to id send in POST data
     try:
-        restaurant = Restaurant.objects.get(id=request.data.get('restaurant'))
-        user = User.objects.get(id=request.data.get('user'))
-        text = request.data.get('text')
-        if request.data.get('comment') is not None:
-            comment = Comment.objects.get(id=request.data.get('comment'))
-            new_comment=Comment(restaurant=restaurant,user=user,text=text,to_comment=comment,date=timezone.now())
-        else:
-            new_comment=Comment(restaurant=restaurant,user=user,text=text,to_comment=None,date=timezone.now())
-        new_comment.full_clean()
-        new_comment.save()
-        comment_serialized=CommentSerializer(new_comment)
-        return Response(comment_serialized.data,status=201)
+        authorization_header = request.headers.get('Authorization')
+        authorization_token = authorization_header.split(' ')[1]
+        user_id=request.data.get('user')
+        user_database=User.objects.get(id=user_id)
+        user_token=Token.objects.get(user=user_database).key
     except Exception as e:
         return Response(status=400, data=repr(e))
+
+    if authorization_token == user_token:
+        try:
+            restaurant = Restaurant.objects.get(id=request.data.get('restaurant'))
+            user = User.objects.get(id=request.data.get('user'))
+            text = request.data.get('text')
+            if request.data.get('comment') is not None:
+                comment = Comment.objects.get(id=request.data.get('comment'))
+                new_comment=Comment(restaurant=restaurant,user=user,text=text,to_comment=comment,date=timezone.now())
+            else:
+                new_comment=Comment(restaurant=restaurant,user=user,text=text,to_comment=None,date=timezone.now())
+            new_comment.full_clean()
+            new_comment.save()
+            comment_serialized=CommentSerializer(new_comment)
+            return Response(comment_serialized.data,status=201)
+        except Exception as e:
+            return Response(status=400, data=repr(e))
+    else: 
+        return Response(status=401, data="Unauthorized Access")
+
+@api_view(['POST'])
+def addRating(request,restaurant_id):
+    """View that:
+     
+    for POST - add a comment """
+    # security user token must match to id send in POST data
+    try:
+        authorization_header = request.headers.get('Authorization')
+        authorization_token = authorization_header.split(' ')[1]
+        user_id=request.data.get('user')
+        user_database=User.objects.get(id=user_id)
+        user_token=Token.objects.get(user=user_database).key
+    except Exception as e:
+        return Response(status=400, data=repr(e))
+
+    if authorization_token == user_token:
+        try:
+            restaurant = Restaurant.objects.get(id=request.data.get('restaurant'))
+            user = User.objects.get(id=request.data.get('user'))
+            rating_value = request.data.get('rating')
+            new_rating = Rating(restaurant=restaurant,user=user,rating_value=rating_value)
+            new_rating_serialized = RatingSerializer(new_rating)
+            new_rating.full_clean()
+            new_rating.save()
+
+            # new average rating
+            average_rating=Rating.objects.filter(restaurant=restaurant).aggregate(avg_rating=Avg('rating_value'))['avg_rating']
+            restaurant.rating_average = average_rating
+            restaurant.save()
+
+            return Response(new_rating_serialized.data,status=201)
+        except Exception as e:
+            return Response(status=400, data=repr(e))
+    else: 
+        return Response(status=401, data="Unauthorized Access")
 
 
 
