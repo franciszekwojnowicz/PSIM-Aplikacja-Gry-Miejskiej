@@ -31,6 +31,7 @@ class UserSerializerAccountPatch(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['name', 'email', 'password', 'image']
+        extra_kwargs = {'password': {'write_only': True}}
 
 class UserSerializerStats(serializers.ModelSerializer):
     class Meta:

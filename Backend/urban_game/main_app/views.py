@@ -99,6 +99,9 @@ def viewUser(request,user_id):
                 user_serialized = UserSerializerAccountPatch(user_database, data=request.data, partial=True)
                 if user_serialized.is_valid():
                     user_serialized.save()
+                    if 'password' in request.data:
+                        user_database.set_password(request.data['password'])
+                        user_database.save()
                     return Response(user_serialized.data, status=200)
                 else:
                     return Response(user_serialized.errors, status=400)
