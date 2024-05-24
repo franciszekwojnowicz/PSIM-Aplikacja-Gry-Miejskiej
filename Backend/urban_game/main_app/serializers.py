@@ -27,6 +27,11 @@ class UserSerializerAccount(serializers.ModelSerializer):
         model = User
         fields = ['name', 'email', 'is_superuser', 'points', 'image']
 
+class UserSerializerAccountPatch(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['name', 'email', 'password', 'image']
+
 class UserSerializerStats(serializers.ModelSerializer):
     class Meta:
         model = User

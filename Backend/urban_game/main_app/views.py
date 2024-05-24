@@ -96,7 +96,7 @@ def viewUser(request,user_id):
                 return Response(status=400, data=repr(e))
         if request.method == "PATCH":
             try:
-                user_serialized = UserSerializerAccount(user_database, data=request.data, partial=True)
+                user_serialized = UserSerializerAccountPatch(user_database, data=request.data, partial=True)
                 if user_serialized.is_valid():
                     user_serialized.save()
                     return Response(user_serialized.data, status=200)
