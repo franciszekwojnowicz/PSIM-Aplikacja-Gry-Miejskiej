@@ -43,7 +43,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     points = models.IntegerField(default=0)
     is_staff = models.BooleanField(default=False)
     objects = CustomUserManager()
-    #image = models.ImageField(upload_to ='uploads/',blank=True,null=True)
+    image = models.URLField(default="https://t3.ftcdn.net/jpg/05/53/79/60/360_F_553796090_XHrE6R9jwmBJUMo9HKl41hyHJ5gqt9oz.jpg")
 
     def save(self, *args, **kwargs):
         self.full_clean()
@@ -57,11 +57,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Restaurant(models.Model):
     name = models.CharField(max_length=60,unique=True,validators=[MinLengthValidator(5)])
     type = models.CharField(max_length=30,validators=[MinLengthValidator(5)])
-    position = models.IntegerField()
+    #position = models.IntegerField()
     unlock_code = models.IntegerField()
     description = models.TextField(default="This is a restaurant")
     # new additional fields
-
     image = models.URLField(default="https://media.istockphoto.com/id/1079901206/photo/3d-render-of-luxury-restaurant-interior.jpg?s=612x612&w=0&k=20&c=kKj5Uw0ZpuWKX8ZX6eXuKGc1sP86fMjIbZJFbWl9-ZM=")
     map_link = models.URLField(default="https://www.google.com/maps/@51.1117445,17.0595713,19.4z?authuser=0&entry=ttu")
     rating_average = models.FloatField(validators=[MinValueValidator(1),MaxValueValidator(5)], default=0.0)
@@ -76,6 +75,7 @@ class Achivement(models.Model):
     name = models.CharField(max_length=60,unique=True,validators=[MinLengthValidator(5)])
     requirements = models.CharField(max_length=60,unique=True,validators=[MinLengthValidator(5)])
     points = models.IntegerField()
+    image = models.URLField(default="https://www.svgrepo.com/show/15494/pizza.svg")
     class Meta:
         db_table = 'Achivement'
 

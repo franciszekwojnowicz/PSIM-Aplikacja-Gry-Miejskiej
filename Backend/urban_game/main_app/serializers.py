@@ -25,7 +25,7 @@ class UserSerializerRegister(serializers.ModelSerializer):
 class UserSerializerAccount(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['name', 'email', 'is_superuser', 'points']
+        fields = ['name', 'email', 'is_superuser', 'points', 'image']
 
 class UserSerializerStats(serializers.ModelSerializer):
     class Meta:
@@ -49,11 +49,14 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class CommentUserNameSerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField("get_user")
+    image = serializers.SerializerMethodField("get_image")
     class Meta:
         model = Comment
-        fields = ['id','text','date','name', 'restaurant', 'to_comment'] 
+        fields = ['id','text','date','name','image', 'restaurant', 'to_comment'] 
     def get_user(self,obj):
         return obj.user.name
+    def get_image(self,obj):
+        return obj.user.image
     
 class Visited_Restaurants_TypeSerializer(serializers.ModelSerializer):
     type = serializers.SerializerMethodField("get_type")
