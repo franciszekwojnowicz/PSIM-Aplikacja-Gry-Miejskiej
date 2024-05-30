@@ -85,6 +85,7 @@ class Rating(models.Model):
     rating_value = models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(5)])
     class Meta:
         db_table = 'Rating'
+        constraints = [models.UniqueConstraint(fields=['user','restaurant'],name='unique_rating'),]
 
 class Comment(models.Model):
     user = models.ForeignKey('User',on_delete=models.CASCADE)
