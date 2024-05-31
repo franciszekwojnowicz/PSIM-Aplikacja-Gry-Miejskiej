@@ -41,6 +41,8 @@ function ListAchivements() {
               name={achievement.name}
               requirements={achievement.requirements}
               points={achievement.points}
+              file_name={achievement.file_name}
+              key={achievement.id}
               isGain={true}
             />
           ))
@@ -54,6 +56,8 @@ function ListAchivements() {
               name={achievement.name}
               requirements={achievement.requirements}
               points={achievement.points}
+              file_name={achievement.file_name}
+              key={achievement.id}
               isGain={false}
             />
           ))

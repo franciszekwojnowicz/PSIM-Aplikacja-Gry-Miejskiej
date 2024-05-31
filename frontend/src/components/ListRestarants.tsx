@@ -40,12 +40,10 @@ function ListRestarants() {
               <Restaurant
                 name={restaurant.name}
                 description={restaurant.description}
-                img={
-                  "https://woothai.pl/wp-content/uploads/2024/03/bg_szama-3-2048x1152.png"
-                }
+                img={restaurant.image}
                 raiting={4}
-                address="Plac Grunwaldzki 59, Wrocław"
-                linkToMap="https://maps.app.goo.gl/7NQrNWJzETFWhP717"
+                address={restaurant.address}
+                linkToMap={restaurant.map_link}
                 visited={true}
                 restaurantID={restaurant.id}
                 key={restaurant.id}
@@ -59,12 +57,10 @@ function ListRestarants() {
               <Restaurant
                 name={restaurant.name}
                 description={restaurant.description}
-                img={
-                  "https://woothai.pl/wp-content/uploads/2024/03/bg_szama-3-2048x1152.png"
-                }
+                img={restaurant.image}
                 raiting={4}
-                address="Plac Grunwaldzki 59, Wrocław"
-                linkToMap="https://maps.app.goo.gl/7NQrNWJzETFWhP717"
+                address={restaurant.address}
+                linkToMap={restaurant.map_link}
                 visited={false}
                 restaurantID={restaurant.id}
                 key={restaurant.id}

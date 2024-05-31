@@ -1,3 +1,4 @@
+import os
 from django.db import models
 from django.core.validators import MinLengthValidator
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -75,10 +76,10 @@ class Achivement(models.Model):
     name = models.CharField(max_length=60,unique=True,validators=[MinLengthValidator(5)])
     requirements = models.CharField(max_length=60,unique=True,validators=[MinLengthValidator(5)])
     points = models.IntegerField()
-    image = models.URLField(default="https://www.svgrepo.com/show/15494/pizza.svg")
+    image = models.FilePathField(path="..\\..\\frontend\\public\\assets\\svgs")
     class Meta:
         db_table = 'Achivement'
-
+    
 class Rating(models.Model):
     user = models.ForeignKey('User',on_delete=models.CASCADE)
     restaurant = models.ForeignKey('Restaurant',on_delete=models.CASCADE)

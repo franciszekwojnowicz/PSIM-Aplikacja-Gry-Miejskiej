@@ -5,6 +5,7 @@ import {
   RestaurantInfoPageModel,
   RestaurantsAPI,
 } from "./types";
+import { text } from "stream/consumers";
 
 const API_URL = "http://localhost:8000/api";
 
@@ -108,6 +109,26 @@ export const postCodeRestaurant = async (
       `${API_URL}/user/${localStorage.getItem("userID")}/restaurants/`,
       {
         code: code,
+      }
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const postComment= async (
+  text: string
+): Promise<NewRestaurant | null> => {
+  try {
+    setAuthToken();
+    const response = await axios.post(
+      `${API_URL}${window.location.pathname}/comment/`,
+      {
+        text: text,
+        user: localStorage.getItem("userID")
       }
     );
     console.log(response.data);

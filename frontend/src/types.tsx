@@ -14,6 +14,10 @@ export interface RestaurantModelAPI {
   type: string;
   position: number;
   description: string;
+  image: string;
+  rating_average : number;
+  address: string;
+  map_link: string;
 }
 
 export interface RestaurantInfoModel {
@@ -21,9 +25,10 @@ export interface RestaurantInfoModel {
   type: string;
   position: number;
   description: string;
-  //raiting: number
-  //address: string
-  //link_to_address: string
+  image: string;
+  rating_average: number;
+  address: string;
+  map_link: string;
 }
 
 export interface RestaurantInfoPageModel {
@@ -48,6 +53,7 @@ export interface AchievementModel {
   name: string;
   requirements: string;
   points: number;
+  file_name: string;
   isGain: boolean;
 }
 

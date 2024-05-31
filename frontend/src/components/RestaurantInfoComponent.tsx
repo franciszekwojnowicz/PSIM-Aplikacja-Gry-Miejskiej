@@ -9,6 +9,10 @@ function RestaurantInfoComponent({
   type,
   position,
   description,
+  image,
+  rating_average,
+  address,
+  map_link,
 }: RestaurantInfoModel) {
   return (
     <>
@@ -18,41 +22,32 @@ function RestaurantInfoComponent({
             <a href="#">
               <img
                 className="w-full object-cover rounded-xl h-full"
-                src={
-                  "https://lh5.googleusercontent.com/p/AF1QipO6GRUn2vxTLSCxMJNaHOZd1GP24ZazMi_MW5nQ=w500-h500-k-no"
-                }
+                src={image}
                 alt="ImgRestaurant"
               />
             </a>
           </div>
         </div>
         <div className="grid grid-flow-row-dense">
-          <h1 className="font-medium text-center text-3xl h-2">
-            {name}
-          </h1>
+          <h1 className="font-medium text-center text-3xl h-2">{name}</h1>
           <h1 className="font-medium text-left h-1 text-2xl">Opis</h1>
-          <p className="items-start text-lg">
-            {description}
-          </p>
+          <p className="items-start text-lg">{description}</p>
           <h1 className="font-medium text-left h-1 text-2xl">Typ</h1>
-          <p className="items-start text-lg">
-            {type}
-          </p>
+          <p className="items-start text-lg">{type}</p>
           <div className="flex space-x-2 content-center place-items-baseline">
             <h1 className="font-medium text-left h-1 text-2xl">Ocena:</h1>
             <div className="flex text-yellow-400 ">
-              <StarFilled />
-              <StarFilled />
-              <StarFilled />
-              <StarEmpty />
-              <StarEmpty />
+                {Array.from(Array(rating_average), (e, i) => {
+                  return <StarFilled key={i} />;
+                })}
+                {Array.from(Array(Number(5 - rating_average)), (e, i) => {
+                  return <StarEmpty key={i} />;
+                })}
             </div>
           </div>
           <div className="flex space-x-2 content-center place-items-baseline">
-            <Pin link={"linkToMap"} />
-            <p className="font-medium text-left h-1 text-lg">
-              Plac Grunwaldzki 53, Wrocław
-            </p>
+            <Pin link={map_link} />
+            <p className="font-medium text-left h-1 text-lg">{address}</p>
           </div>
         </div>
       </div>

@@ -216,7 +216,7 @@ def addComment(request,restaurant_id):
      
     for POST - add a comment """
     try:
-        restaurant = Restaurant.objects.get(id=request.data.get('restaurant'))
+        restaurant=Restaurant.objects.get(id=restaurant_id)
         user = User.objects.get(id=request.data.get('user'))
         text = request.data.get('text')
         if request.data.get('comment') is not None:

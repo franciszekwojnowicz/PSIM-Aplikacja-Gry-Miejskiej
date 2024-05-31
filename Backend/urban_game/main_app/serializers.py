@@ -8,12 +8,16 @@ class RestaurantSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'type', 'address', 'description', 'image', 'map_link', 'rating_average']
     def get_address(self, obj):
         return '{} {} , {}'.format(obj.street, obj.street_number, obj.city)
-
+    
+class FileNameField(serializers.ModelSerializer):
+    def to_representation(self, value):
+        return os.path.basename(value)
 
 class AchivementSerializer(serializers.ModelSerializer):
+    file_name = FileNameField(source='image') 
     class Meta:
         model = Achivement
-        fields = '__all__'
+        fields = ['name', 'requirements', 'points', 'file_name']
 
 
 class UserSerializerRegister(serializers.ModelSerializer):

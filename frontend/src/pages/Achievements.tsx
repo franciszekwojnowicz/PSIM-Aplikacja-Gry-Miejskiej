@@ -1,8 +1,4 @@
 import Navbar from "../components/Navbar";
-import Check from "../components/icons/Check";
-import XMark from "../components/icons/XMark";
-import Italian from "../components/icons/Italian";
-import Crown from "../components/icons/Crown";
 import ListAchivements from "../components/ListAchievements";
 
 function Achievements() {
