@@ -90,7 +90,9 @@ function RestaurantInfo() {
             type="submit"
             className="px-2.5 py-1.5 rounded-md text-white text-sm bg-black hover:bg-blue-800 "
             value="Post Comment"
-            onClick={() => postComment(comment)}
+            onClick={() => 
+              postComment(comment, null)
+            }
           />
         </div>
       </div>

@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios, { Axios, AxiosError } from "axios";
 import {
   AchievementAPI,
   NewRestaurant,
@@ -119,19 +119,33 @@ export const postCodeRestaurant = async (
   }
 };
 
-export const postComment= async (
-  text: string
-): Promise<NewRestaurant | null> => {
+export const postComment = async (
+  text: string,
+  comment: number | null
+): Promise<Comment | null> => {
   try {
     setAuthToken();
-    const response = await axios.post(
-      `${API_URL}${window.location.pathname}/comment/`,
-      {
-        text: text,
-        user: localStorage.getItem("userID")
-      }
-    );
+    let response;
+    if (comment != null) {
+      response = await axios.post(
+        `${API_URL}${window.location.pathname}/comment/`,
+        {
+          text: text,
+          comment: comment,
+          user: localStorage.getItem("userID"),
+        }
+      );
+    } else {
+      response = await axios.post(
+        `${API_URL}${window.location.pathname}/comment/`,
+        {
+          text: text,
+          user: localStorage.getItem("userID"),
+        }
+      );
+    }
     console.log(response.data);
+    window.location.href = window.location.href;
     return response.data;
   } catch (error) {
     console.log(error);

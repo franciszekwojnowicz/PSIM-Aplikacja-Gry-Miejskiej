@@ -242,7 +242,7 @@ def addRating(request,restaurant_id):
     access = checkToken(request)
     if access is True:
         try:
-            restaurant = Restaurant.objects.get(id=request.data.get('restaurant'))
+            restaurant = Restaurant.objects.get(id=restaurant_id)
             user = User.objects.get(id=request.data.get('user'))
             rating_value = request.data.get('rating')
             new_rating = Rating(restaurant=restaurant,user=user,rating_value=rating_value)

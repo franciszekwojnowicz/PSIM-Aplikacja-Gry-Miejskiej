@@ -15,7 +15,7 @@ export interface RestaurantModelAPI {
   position: number;
   description: string;
   image: string;
-  rating_average : number;
+  rating_average: number;
   address: string;
   map_link: string;
 }
@@ -63,7 +63,7 @@ export interface AchievementAPI {
 }
 
 export interface CommentModel {
-  id: string;
+  id: number;
   text: string;
   date: Date;
   name: string;

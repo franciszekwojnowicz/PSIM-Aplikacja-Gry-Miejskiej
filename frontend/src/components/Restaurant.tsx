@@ -17,7 +17,7 @@ function Restaurant({
   return (
     <div className="rounded overflow-hidden shadow-lg flex-auto">
       <div className={`relative ${visited ? "" : "pointer-events-none"} h-60`}>
-        <Link to={`/${restaurantID}/restaurants`}>
+        <Link to={`/restaurant/${restaurantID}`}>
           <a href={`${visited ? "#" : ""}`}>
             <img
               className={`w-full ${
