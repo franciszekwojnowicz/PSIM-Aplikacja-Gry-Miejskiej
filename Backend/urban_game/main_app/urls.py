@@ -2,15 +2,17 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('test', views.test),
-    path('viewAllRestaurants', views.viewAllRestaurants),
-    path('viewAllAchivements', views.viewAllAchivements),
-    path('viewAllUsers', views.viewAllUsers),
-    path('viewUserAchivements', views.viewUserAchivements),
-    path('viewUserVisited_Restaurants', views.viewUserVisited_Restaurants),
-    path('addVisited_Restaurant', views.addVisited_Restaurant),
-    path('addComment', views.addComment),
-    path('viewCommentsForRestaurant',views.viewCommentsForRestaurant),
-    path('register/', views.register_user), 
-    path('login/', views.login_user), 
+    path('api/user/', views.viewAllUsers),   
+    path('api/user/<int:user_id>/', views.viewUser),
+    path('api/user/<int:user_id>/restaurants/', views.viewUserRestaurants),
+    path('api/user/<int:user_id>/achievements/', views.viewUserAchivements),
+    
+    path('api/restaurant/<int:restaurant_id>/',views.viewRestaurant),
+    path('api/restaurant/<int:restaurant_id>/comment/',views.addComment),
+    path('api/restaurant/<int:restaurant_id>/rating/',views.addRating),
+
+    path('api/register/', views.register_user), 
+    path('api/login/', views.login_user),
+
+    path('api/addDefaultAchievements', views.addDefaultAchivements),
 ]
