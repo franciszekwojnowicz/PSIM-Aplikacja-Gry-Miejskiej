@@ -4,6 +4,8 @@ import {
   NewRestaurant,
   RestaurantInfoPageModel,
   RestaurantsAPI,
+  UserModel,
+  UserModelRanking,
 } from "./types";
 import { text } from "stream/consumers";
 
@@ -149,6 +151,51 @@ export const postComment = async (
     return response.data;
   } catch (error) {
     console.log(error);
+    return null;
+  }
+};
+
+export const getUser = async () => {
+  try {
+    setAuthToken();
+    const response = await axios.get<UserModel>(
+      `${API_URL}/user/${localStorage.getItem("userID")}/`
+    );
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user", error);
+    return null;
+  }
+};
+
+export const getUsers = async () => {
+  try {
+    setAuthToken();
+    const response = await axios.get<UserModelRanking[]>(`${API_URL}/user/`);
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error("Error getting users", error);
+    return null;
+  }
+};
+
+export const fetchUser = async (
+  email: string,
+  name: string,
+  password: string
+) => {
+  try {
+    setAuthToken();
+    const response = await axios.patch<UserModel>(
+      `${API_URL}/user/${localStorage.getItem("userID")}/`,
+      { name: name, email: email, password: password }
+    );
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error("Error patching user", error);
     return null;
   }
 };

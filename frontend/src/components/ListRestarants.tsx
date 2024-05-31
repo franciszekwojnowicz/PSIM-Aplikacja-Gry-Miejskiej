@@ -41,7 +41,7 @@ function ListRestarants() {
                 name={restaurant.name}
                 description={restaurant.description}
                 img={restaurant.image}
-                raiting={4}
+                raiting={restaurant.rating_average}
                 address={restaurant.address}
                 linkToMap={restaurant.map_link}
                 visited={true}
@@ -58,7 +58,7 @@ function ListRestarants() {
                 name={restaurant.name}
                 description={restaurant.description}
                 img={restaurant.image}
-                raiting={4}
+                raiting={restaurant.rating_average}
                 address={restaurant.address}
                 linkToMap={restaurant.map_link}
                 visited={false}

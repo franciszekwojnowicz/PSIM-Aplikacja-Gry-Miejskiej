@@ -11,6 +11,8 @@ import RestaurantInfo from "./pages/RestaurantInfo";
 import Achievements from "./pages/Achievements";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
+import AccountPage from "./pages/AccountPage";
+import RankingPage from "./pages/RankingPage";
 
 function RoutesComponent() {
   return (
@@ -24,6 +26,8 @@ function RoutesComponent() {
           <Route path="/achievements" element={<Achievements />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/ranking" element={<RankingPage />} />
+          <Route path="/user/:userID" element={<AccountPage />} />
           <Route path="*" element={<NotFoundPage />}></Route>
         </Routes>
       </Router>

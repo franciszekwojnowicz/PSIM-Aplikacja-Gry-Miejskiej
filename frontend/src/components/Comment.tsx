@@ -7,6 +7,7 @@ function Comment({
   text,
   date,
   name,
+  image,
   restaurant,
   to_comment,
   subcomments,
@@ -21,7 +22,7 @@ function Comment({
           <div className="p-3">
             <div className="flex gap-3 items-center">
               <img
-                src="https://m.media-amazon.com/images/I/61LeyKJ5QAL._AC_UF1000,1000_QL80_.jpg"
+                src={image}
                 className="object-cover w-10 h-10 rounded-full border-2 border-blue-600  shadow-blue-600"
               />
               <h3 className="font-bold">{name}</h3>
@@ -83,6 +84,7 @@ function Comment({
                       text={comment.text}
                       date={comment.date}
                       name={comment.name}
+                      image={comment.image}
                       restaurant={comment.restaurant}
                       to_comment={comment.to_comment}
                       subcomments={comment.subcomments}

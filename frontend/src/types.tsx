@@ -67,7 +67,20 @@ export interface CommentModel {
   text: string;
   date: Date;
   name: string;
+  image: string;
   restaurant: number;
   to_comment: number | null;
   subcomments: CommentModel[];
+}
+export interface UserModel {
+  name: string;
+  email: string;
+  image: string;
+  points: number;
+}
+export interface UserModelRanking {
+  name: string;
+  id: number;
+  image: string;
+  points: number;
 }

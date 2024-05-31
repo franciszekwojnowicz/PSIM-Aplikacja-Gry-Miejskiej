@@ -66,6 +66,7 @@ function RestaurantInfo() {
                   text={comment.text}
                   date={comment.date}
                   name={comment.name}
+                  image={comment.image}
                   restaurant={comment.restaurant}
                   to_comment={comment.to_comment}
                   subcomments={comment.subcomments}
@@ -90,9 +91,7 @@ function RestaurantInfo() {
             type="submit"
             className="px-2.5 py-1.5 rounded-md text-white text-sm bg-black hover:bg-blue-800 "
             value="Post Comment"
-            onClick={() => 
-              postComment(comment, null)
-            }
+            onClick={() => postComment(comment, null)}
           />
         </div>
       </div>
