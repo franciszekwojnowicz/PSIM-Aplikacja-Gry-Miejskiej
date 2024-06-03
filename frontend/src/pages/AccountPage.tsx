@@ -54,8 +54,10 @@ function AccountPage() {
               <div className="grid grid-flow-col">
                 <div className="rounded-sm bg-cover bg-center bg-no-repeat items-center flex justify-center">
                   <div
-                    className={`mx-auto flex justify-center w-[141px] h-[141px] bg-blue-300/20 rounded-full bg-[url(${user.image})] bg-cover bg-center bg-no-repeat`}
-                  ></div>
+                    className={`mx-auto flex justify-center w-[141px] h-[141px] bg-blue-300/20 rounded-full bg-cover bg-center bg-no-repeat`}
+                  >
+                    <img src={`${user.image}`} />
+                  </div>
                 </div>
                 <div className="w-full rounded-sm bg-cover bg-center bg-no-repeat">
                   <div className="mx-auto border-yellow-500 border-4  text-8xl place-self-center flex items-center justify-center w-[141px] h-[141px] bg-white text-black rounded-full bg-cover bg-center bg-no-repeat">
@@ -108,7 +110,7 @@ function AccountPage() {
                   className="w-full p-4"
                   onClick={() => fetchUser(email, username, password)}
                 >
-                  Submit
+                  Zmień
                 </button>
               </div>
             </div>
