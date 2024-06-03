@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import StarFilled from "./icons/StarFilled";
 import StarEmpty from "./icons/StarEmpty";
 import Pin from "./icons/Pin";
@@ -15,6 +15,9 @@ function RestaurantInfoComponent({
   address,
   map_link,
 }: RestaurantInfoModel) {
+  const [isError, setIsError] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
+
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 sm:grid-cols-1 gap-10 h-auto">
@@ -41,7 +44,15 @@ function RestaurantInfoComponent({
               {Array.from(Array(rating_average), (e, i) => {
                 return (
                   <StarFilled
-                    click={() => postRating(rating_average)}
+                    click={async () => {
+                      try {
+                        await postRating(i + 1 + rating_average);
+                        setIsError(false);
+                        setIsAdded(true);
+                      } catch (error) {
+                        setIsError(true);
+                      }
+                    }}
                     key={i}
                   />
                 );
@@ -49,15 +60,32 @@ function RestaurantInfoComponent({
               {Array.from(Array(Number(5 - rating_average)), (e, i) => {
                 return (
                   <StarEmpty
-                    click={() => {
-                      console.log(i + 1 + rating_average);
-                      postRating(i + 1 + rating_average);
+                    click={async () => {
+                      try {
+                        await postRating(i + 1 + rating_average);
+                        setIsError(false);
+                        setIsAdded(true);
+                      } catch (error) {
+                        setIsError(true);
+                      }
                     }}
                     key={i}
                   />
                 );
               })}
             </div>
+            {isError && (
+              <div className=" text-red-600 text-center text-xl font-bold">
+                {" "}
+                Nie można dodać oceny!
+              </div>
+            )}
+            {isAdded && (
+              <div className=" text-green-600 text-center text-xl font-bold">
+                {" "}
+                Dodano ocene!
+              </div>
+            )}
           </div>
           <div className="flex space-x-2 content-center place-items-baseline">
             <Pin link={map_link} />
