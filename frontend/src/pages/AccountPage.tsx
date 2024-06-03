@@ -110,7 +110,18 @@ function AccountPage() {
                   className="w-full p-4"
                   onClick={() => fetchUser(email, username, password)}
                 >
-                  Zmień
+                  Zmień dane
+                </button>
+              </div>
+              <div className="w-full rounded-lg bg-red-600 mt-4 text-white text-lg font-semibold">
+                <button
+                  type="submit"
+                  className="w-full p-4"
+                  onClick={() => {
+                    localStorage.removeItem("userID");
+                  }}
+                >
+                  Wyloguj
                 </button>
               </div>
             </div>
