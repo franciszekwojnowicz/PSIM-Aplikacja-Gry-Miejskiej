@@ -99,6 +99,7 @@ export const handleSignUp = async (
     window.location.href = "/restaurants/";
   } catch (error) {
     console.log("ERROR REGISTER");
+    throw error;
   }
 };
 
@@ -196,6 +197,6 @@ export const fetchUser = async (
     return response.data;
   } catch (error) {
     console.error("Error patching user", error);
-    return null;
+    throw error;
   }
 };

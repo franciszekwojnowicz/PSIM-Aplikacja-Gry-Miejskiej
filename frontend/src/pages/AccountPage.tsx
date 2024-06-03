@@ -11,6 +11,11 @@ function AccountPage() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
+  const [isError, setIsError] = useState(false);
+  const [isErrorPassword, setIsErrorPassword] = useState(false);
+  const checkPassword = () => {
+    return password.length >= 8 ? true : false;
+  };
 
   useEffect(() => {
     const fetchDataAsync = async () => {
@@ -104,26 +109,51 @@ function AccountPage() {
                   />
                 </div>
               </div>
+              {isErrorPassword && (
+                <div className=" text-red-600 text-center">
+                  {" "}
+                  Hasło musi się składać z przynajmniej 8 znaków!
+                </div>
+              )}
+              {isError && (
+                <div className=" text-red-600 text-center">
+                  {" "}
+                  Podany login/email jest już zajęty!
+                </div>
+              )}
               <div className="w-full rounded-lg bg-blue-500 mt-4 text-white text-lg font-semibold">
                 <button
                   type="submit"
                   className="w-full p-4"
-                  onClick={() => fetchUser(email, username, password)}
+                  onClick={async () => {
+                    if (!checkPassword()) {
+                      setIsErrorPassword(true);
+                      return;
+                    } else setIsErrorPassword(false);
+                    try {
+                      await fetchUser(email, username, password);
+                      setIsError(false);
+                    } catch (error) {
+                      setIsError(true);
+                    }
+                  }}
                 >
                   Zmień dane
                 </button>
               </div>
               <div className="w-full rounded-lg bg-red-600 mt-4 text-white text-lg font-semibold">
-                <button
-                  type="submit"
-                  className="w-full p-4"
-                  onClick={() => {
-                    localStorage.removeItem("userID");
-                    localStorage.removeItem("token");
-                  }}
-                >
-                  Wyloguj
-                </button>
+                <form>
+                  <button
+                    type="submit"
+                    className="w-full p-4"
+                    onClick={() => {
+                      localStorage.removeItem("userID");
+                      localStorage.removeItem("token");
+                    }}
+                  >
+                    Wyloguj
+                  </button>
+                </form>
               </div>
             </div>
           </div>
