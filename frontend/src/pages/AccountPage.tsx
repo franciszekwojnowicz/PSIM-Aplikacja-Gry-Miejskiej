@@ -119,6 +119,7 @@ function AccountPage() {
                   className="w-full p-4"
                   onClick={() => {
                     localStorage.removeItem("userID");
+                    localStorage.removeItem("token");
                   }}
                 >
                   Wyloguj

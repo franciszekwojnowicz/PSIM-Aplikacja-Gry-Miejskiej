@@ -15,19 +15,46 @@ import AccountPage from "./pages/AccountPage";
 import RankingPage from "./pages/RankingPage";
 
 function RoutesComponent() {
+  const isLoggedIn = () => {
+    return localStorage.getItem("userID") && localStorage.getItem("token")
+      ? true
+      : false;
+  };
+
   return (
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<Navigate to={"/restaurants"} />}></Route>
-          <Route path="/restaurants" element={<Restarants />} />
-          <Route path="/restaurants/info" element={<RestaurantInfo />} />
-          <Route path="/restaurant/:id" element={<RestaurantInfo />} />
-          <Route path="/achievements" element={<Achievements />} />
+          <Route
+            path="/"
+            element={<Navigate to={isLoggedIn() ? "/restaurants" : "/login"} />}
+          ></Route>
+          <Route
+            path="/restaurants"
+            element={isLoggedIn() ? <Restarants /> : <LoginPage />}
+          />
+          <Route
+            path="/restaurants/info"
+            element={isLoggedIn() ? <RestaurantInfo /> : <LoginPage />}
+          />
+          <Route
+            path="/restaurant/:id"
+            element={isLoggedIn() ? <RestaurantInfo /> : <LoginPage />}
+          />
+          <Route
+            path="/achievements"
+            element={isLoggedIn() ? <Achievements /> : <LoginPage />}
+          />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
-          <Route path="/ranking" element={<RankingPage />} />
-          <Route path="/user/:userID" element={<AccountPage />} />
+          <Route
+            path="/ranking"
+            element={isLoggedIn() ? <RankingPage /> : <LoginPage />}
+          />
+          <Route
+            path="/user/:userID"
+            element={isLoggedIn() ? <AccountPage /> : <LoginPage />}
+          />
           <Route path="*" element={<NotFoundPage />}></Route>
         </Routes>
       </Router>
