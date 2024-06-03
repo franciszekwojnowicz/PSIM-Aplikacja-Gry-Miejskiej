@@ -1,14 +1,17 @@
 import React from "react";
-
-function Star() {
+interface Props {
+  click: () => void;
+}
+function StarFilled({ click }: Props) {
   return (
     <div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
         fill="currentColor"
-        className="w-5 h-5"
+        className="w-5 h-5 hover:fill-black"
         stroke="black"
+        onClick={() => click()}
       >
         <path
           fillRule="evenodd"
@@ -20,4 +23,4 @@ function Star() {
   );
 }
 
-export default Star;
+export default StarFilled;

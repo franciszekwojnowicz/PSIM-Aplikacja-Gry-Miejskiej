@@ -200,3 +200,18 @@ export const fetchUser = async (
     throw error;
   }
 };
+
+export const postRating = async (rating: number) => {
+  try {
+    setAuthToken();
+    const response = await axios.post(
+      `${API_URL}${window.location.pathname}/rating/`,
+      { user: localStorage.getItem("userID"), rating: rating }
+    );
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error("Error post rating", error);
+    throw error;
+  }
+};

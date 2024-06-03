@@ -3,6 +3,7 @@ import StarFilled from "./icons/StarFilled";
 import StarEmpty from "./icons/StarEmpty";
 import Pin from "./icons/Pin";
 import { RestaurantInfoModel } from "../types";
+import { postRating } from "../api";
 
 function RestaurantInfoComponent({
   name,
@@ -37,12 +38,25 @@ function RestaurantInfoComponent({
           <div className="flex space-x-2 content-center place-items-baseline">
             <h1 className="font-medium text-left h-1 text-2xl">Ocena:</h1>
             <div className="flex text-yellow-400 ">
-                {Array.from(Array(rating_average), (e, i) => {
-                  return <StarFilled key={i} />;
-                })}
-                {Array.from(Array(Number(5 - rating_average)), (e, i) => {
-                  return <StarEmpty key={i} />;
-                })}
+              {Array.from(Array(rating_average), (e, i) => {
+                return (
+                  <StarFilled
+                    click={() => postRating(rating_average)}
+                    key={i}
+                  />
+                );
+              })}
+              {Array.from(Array(Number(5 - rating_average)), (e, i) => {
+                return (
+                  <StarEmpty
+                    click={() => {
+                      console.log(i + 1 + rating_average);
+                      postRating(i + 1 + rating_average);
+                    }}
+                    key={i}
+                  />
+                );
+              })}
             </div>
           </div>
           <div className="flex space-x-2 content-center place-items-baseline">
