@@ -234,28 +234,55 @@ def addComment(request,restaurant_id):
     else: 
         return Response(status=401, data=repr(access))
 
-@api_view(['POST'])
+@api_view(['POST','PATCH','DELETE'])
 def addRating(request,restaurant_id):
     """View that:
      
     for POST - add a comment """
     access = checkToken(request)
     if access is True:
-        try:
-            restaurant = Restaurant.objects.get(id=restaurant_id)
-            user = User.objects.get(id=request.data.get('user'))
-            rating_value = request.data.get('rating')
-            new_rating = Rating(restaurant=restaurant,user=user,rating_value=rating_value)
-            new_rating_serialized = RatingSerializer(new_rating)
-            new_rating.full_clean()
-            new_rating.save()
-            # new average rating
-            #average_rating = Rating.objects.filter(restaurant=restaurant).aggregate(avg_rating=Avg('rating_value'))['avg_rating']
-            #restaurant.rating_average = average_rating
-            #restaurant.save()
-            return Response(new_rating_serialized.data,status=201)
-        except Exception as e:
-            return Response(status=400, data=repr(e))
+        if request.method == "POST":
+            try:
+                restaurant = Restaurant.objects.get(id=restaurant_id)
+                user = User.objects.get(id=request.data.get('user'))
+                rating_value = request.data.get('rating')
+                new_rating = Rating(restaurant=restaurant,user=user,rating_value=rating_value)
+                new_rating_serialized = RatingSerializer(new_rating)
+                new_rating.full_clean()
+                new_rating.save()
+                # new average rating
+                #average_rating = Rating.objects.filter(restaurant=restaurant).aggregate(avg_rating=Avg('rating_value'))['avg_rating']
+                #restaurant.rating_average = average_rating
+                #restaurant.save()
+                return Response(new_rating_serialized.data,status=201)
+            except Exception as e:
+                return Response(status=400, data=repr(e))
+        elif request.method == "PATCH":
+            try:
+                restaurant = Restaurant.objects.get(id=restaurant_id)
+                user = User.objects.get(id=request.data.get('user'))
+                new_rating_value = request.data.get('rating')
+
+                rating = Rating.objects.get(restaurant=restaurant,user=user)
+                if rating:
+                    rating_serialized = RatingSerializer(rating)
+                    rating.rating_value = new_rating_value
+                    rating.full_clean()
+                    rating.save()
+                return Response(rating_serialized.data,status=201)
+            except Exception as e:
+                return Response(status=400, data=repr(e))
+        elif request.method == "DELETE":
+            try:
+                restaurant = Restaurant.objects.get(id=restaurant_id)
+                user = User.objects.get(id=request.data.get('user'))
+                rating = Rating.objects.get(restaurant=restaurant,user=user)
+                if rating:
+                    rating_serialized = RatingSerializer(rating)
+                    rating.delete()
+                return Response(rating_serialized.data,status=201)
+            except Exception as e:
+                return Response(status=400, data=repr(e))
     elif access is False:
          return Response(status=401, data="Unauthorized Access")   
     else: 
