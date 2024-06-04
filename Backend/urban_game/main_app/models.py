@@ -91,7 +91,7 @@ class Achivement(models.Model):
     name = models.CharField(max_length=60,unique=True,validators=[MinLengthValidator(5)])
     requirements = models.CharField(max_length=60,unique=True,validators=[MinLengthValidator(5)])
     points = models.IntegerField()
-    image = models.FilePathField(path="..\\..\\frontend\\public\\assets\\svgs")
+    image = models.FilePathField(path=os.path.join("..","..","frontend","public","assets","svgs")) 
     class Meta:
         db_table = 'Achivement'
     
