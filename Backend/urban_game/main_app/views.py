@@ -192,6 +192,15 @@ def viewRestaurant(request,restaurant_id):
         restaurant_database = Restaurant.objects.get(id=restaurant_id)
         restaurant_serialized = RestaurantSerializer(restaurant_database)
         restaurant = restaurant_serialized.data
+        try:
+            user = User.objects.get(id=request.query_params.get('user'))
+            user_rating = Rating.objects.get(user=user, restaurant=restaurant_database)
+            user_rating_serialized = RatingSerializer(user_rating)
+            restaurant["rating_user"] = user_rating_serialized.data["rating_value"]
+        except Exception as e_user:
+            restaurant["rating_user"] = 0
+
+        
         # comments for restaurant
         base_comments_database = Comment.objects.filter(restaurant=restaurant_id,to_comment__isnull=True)
         base_comments_serialized = CommentUserNameSerializer(base_comments_database,many=True)

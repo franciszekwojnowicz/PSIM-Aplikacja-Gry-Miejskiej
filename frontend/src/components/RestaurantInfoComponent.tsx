@@ -3,7 +3,7 @@ import StarFilled from "./icons/StarFilled";
 import StarEmpty from "./icons/StarEmpty";
 import Pin from "./icons/Pin";
 import { RestaurantInfoModel } from "../types";
-import { postRating } from "../api";
+import { patchRating, postRating } from "../api";
 
 function RestaurantInfoComponent({
   name,
@@ -12,6 +12,7 @@ function RestaurantInfoComponent({
   description,
   image,
   rating_average,
+  rating_user,
   address,
   map_link,
 }: RestaurantInfoModel) {
@@ -39,20 +40,17 @@ function RestaurantInfoComponent({
           <h1 className="font-medium text-left h-1 text-2xl">Typ</h1>
           <p className="items-start text-lg">{type}</p>
           <div className="flex space-x-2 content-center place-items-baseline">
-            <h1 className="font-medium text-left h-1 text-2xl">Ocena:</h1>
+            <h1 className="font-medium text-left h-1 text-2xl">
+              Ocena restuaracji:
+            </h1>
             <div className="flex text-yellow-400 ">
               {Array.from(Array(rating_average), (e, i) => {
                 return (
                   <StarFilled
-                    click={async () => {
-                      try {
-                        await postRating(i + 1 + rating_average);
-                        setIsError(false);
-                        setIsAdded(true);
-                      } catch (error) {
-                        setIsError(true);
-                      }
+                    click={() => {
+                      return null;
                     }}
+                    onHover={false}
                     key={i}
                   />
                 );
@@ -60,32 +58,76 @@ function RestaurantInfoComponent({
               {Array.from(Array(Number(5 - rating_average)), (e, i) => {
                 return (
                   <StarEmpty
-                    click={async () => {
-                      try {
-                        await postRating(i + 1 + rating_average);
-                        setIsError(false);
-                        setIsAdded(true);
-                      } catch (error) {
-                        setIsError(true);
-                      }
+                    click={() => {
+                      return null;
                     }}
+                    onHover={false}
                     key={i}
                   />
                 );
               })}
             </div>
-            {isError && (
-              <div className=" text-red-600 text-center text-xl font-bold">
-                {" "}
-                Nie można dodać oceny!
-              </div>
-            )}
-            {isAdded && (
-              <div className=" text-green-600 text-center text-xl font-bold">
-                {" "}
-                Dodano ocene!
-              </div>
-            )}
+          </div>
+          <div className="flex space-x-2 content-center place-items-baseline">
+            <h1 className="font-medium text-left h-5 text-2xl">Twoja ocena:</h1>
+            <div className="flex text-yellow-400 ">
+              {Array.from(Array(rating_user), (e, i) => {
+                return (
+                  <StarFilled
+                    click={async () => {
+                      try {
+                        {
+                          rating_user === 0
+                            ? await postRating(i + 1)
+                            : await patchRating(i + 1);
+                        }
+                        setIsError(false);
+                        setIsAdded(true);
+                        window.location.href = window.location.href;
+                      } catch (error) {
+                        setIsError(true);
+                      }
+                    }}
+                    onHover={true}
+                    key={i}
+                  />
+                );
+              })}
+              {Array.from(Array(Number(5 - rating_user)), (e, i) => {
+                return (
+                  <StarEmpty
+                    click={async () => {
+                      try {
+                        {
+                          rating_user === 0
+                            ? await postRating(i + 1 + rating_user)
+                            : await patchRating(i + 1 + rating_user);
+                        }
+                        setIsError(false);
+                        setIsAdded(true);
+                        window.location.href = window.location.href;
+                      } catch (error) {
+                        setIsError(true);
+                      }
+                    }}
+                    onHover={true}
+                    key={i}
+                  />
+                );
+              })}
+              {isError && (
+                <div className=" text-red-600 text-center text-xl font-bold">
+                  {" "}
+                  Nie można dodać oceny!
+                </div>
+              )}
+              {isAdded && (
+                <div className=" text-green-600 text-center text-xl font-bold">
+                  {" "}
+                  Dodano ocene!
+                </div>
+              )}
+            </div>
           </div>
           <div className="flex space-x-2 content-center place-items-baseline">
             <Pin link={map_link} />

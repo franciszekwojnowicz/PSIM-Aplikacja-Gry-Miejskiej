@@ -1,15 +1,16 @@
 import React from "react";
 interface Props {
   click: () => void;
+  onHover: boolean;
 }
-function StarFilled({ click }: Props) {
+function StarFilled({ click, onHover }: Props) {
   return (
     <div>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
         fill="currentColor"
-        className="w-5 h-5 hover:fill-black"
+        className={`w-5 h-5 ${onHover ? "hover:fill-black" : ""}`}
         stroke="black"
         onClick={() => click()}
       >
