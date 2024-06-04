@@ -21,7 +21,6 @@ Pillow==9.0.1
 psycopg==3.1.18
 python-dotenv==1.0.1
 pytz==2022.1
-PyYAML==5.4.1
 requests==2.31.0
 setproctitle==1.2.2
 sqlparse==0.4.4
