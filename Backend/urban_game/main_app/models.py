@@ -3,6 +3,9 @@ from django.db import models
 from django.core.validators import MinLengthValidator
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.db.models import Avg
+from django.db.models.signals import post_delete, post_save
+from django.dispatch import receiver
 # Create your models here.
 
 
@@ -72,6 +75,18 @@ class Restaurant(models.Model):
     class Meta:
         db_table = 'Restaurant'
 
+    def update_average_rating(self):
+        #average = self.rating_set.aggregate(avg_rating=Avg('rating_value'))['avg_rating'] or 0
+        #self.average_rating = average
+        ratings = Rating.objects.filter(restaurant=self.id)
+        if ratings:
+            average_rating = ratings.aggregate(avg_rating=Avg('rating_value'))['avg_rating']
+            self.rating_average = average_rating
+        else:
+            self.rating_average = 0.0
+        self.save()
+
+
 class Achivement(models.Model):
     name = models.CharField(max_length=60,unique=True,validators=[MinLengthValidator(5)])
     requirements = models.CharField(max_length=60,unique=True,validators=[MinLengthValidator(5)])
@@ -110,3 +125,8 @@ class Unlocked_Achivement(models.Model):
     class Meta:
         db_table = 'Unlocked_Achivement'      
         constraints = [models.UniqueConstraint(fields=['user','achivement'],name='unique_user_achivement'),]
+
+@receiver([post_delete, post_save], sender=Rating)
+def change_rating_handler(sender, instance, **kwargs):
+    instance.restaurant.update_average_rating()
+    print(f"{instance} has been deleted.")

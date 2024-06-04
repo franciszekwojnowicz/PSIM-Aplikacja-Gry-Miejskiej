@@ -250,9 +250,9 @@ def addRating(request,restaurant_id):
             new_rating.full_clean()
             new_rating.save()
             # new average rating
-            average_rating = Rating.objects.filter(restaurant=restaurant).aggregate(avg_rating=Avg('rating_value'))['avg_rating']
-            restaurant.rating_average = average_rating
-            restaurant.save()
+            #average_rating = Rating.objects.filter(restaurant=restaurant).aggregate(avg_rating=Avg('rating_value'))['avg_rating']
+            #restaurant.rating_average = average_rating
+            #restaurant.save()
             return Response(new_rating_serialized.data,status=201)
         except Exception as e:
             return Response(status=400, data=repr(e))
