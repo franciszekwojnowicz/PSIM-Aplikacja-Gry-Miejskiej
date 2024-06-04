@@ -1,7 +1,9 @@
-from django.urls import path, include
+from django.urls import path, include, re_path
 from . import views
+from django.views.generic import TemplateView
 
 urlpatterns = [
+    re_path(r'^.*$', TemplateView.as_view(template_name='index.html')),
     path('api/user/', views.viewAllUsers),   
     path('api/user/<int:user_id>/', views.viewUser),
     path('api/user/<int:user_id>/restaurants/', views.viewUserRestaurants),
