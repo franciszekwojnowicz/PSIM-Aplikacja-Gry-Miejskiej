@@ -41,7 +41,7 @@ function Restaurant({
           <a>
             <div className="text-sm absolute top-0 right-0 bg-black px-4 text-yellow-400 rounded-full h-16 w-16 flex flex-col items-center justify-center mt-3 mr-3 transition duration-500 ease-in-out">
               <span className="font-bold">{raiting}/5</span>
-              <StarFilled />
+              <StarFilled click = {() => {return null}} onHover = {false}/>
             </div>
           </a>
         </Link>
