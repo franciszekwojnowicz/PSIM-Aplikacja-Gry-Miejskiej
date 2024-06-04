@@ -1,9 +1,10 @@
 import React from "react";
 interface Props {
   click: () => void;
+  onHover: boolean;
 }
 
-function StarEmpty({ click }: Props) {
+function StarEmpty({ click, onHover }: Props) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -11,7 +12,7 @@ function StarEmpty({ click }: Props) {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="black"
-      className="w-5 h-5 hover:fill-black"
+      className={`w-5 h-5 ${onHover ? "hover:fill-black" : ""}`}
       onClick={() => click()}
     >
       <path

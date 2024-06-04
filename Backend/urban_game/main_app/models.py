@@ -129,4 +129,4 @@ class Unlocked_Achivement(models.Model):
 @receiver([post_delete, post_save], sender=Rating)
 def change_rating_handler(sender, instance, **kwargs):
     instance.restaurant.update_average_rating()
-    print(f"{instance} has been deleted.")
+    print(f"{instance} has been changed.")

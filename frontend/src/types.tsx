@@ -27,6 +27,7 @@ export interface RestaurantInfoModel {
   description: string;
   image: string;
   rating_average: number;
+  rating_user: number;
   address: string;
   map_link: string;
 }

@@ -54,7 +54,8 @@ export const getRestaurantInfo = async (
   try {
     setAuthToken();
     const response = await axios.get<RestaurantInfoPageModel>(
-      `${API_URL}/restaurant/${restaurantID}/`
+      `${API_URL}/restaurant/${restaurantID}/`,
+      { params: { user: localStorage.getItem("userID") } }
     );
     console.log(response);
     return response.data;
@@ -212,6 +213,21 @@ export const postRating = async (rating: number) => {
     return response.data;
   } catch (error) {
     console.error("Error post rating", error);
+    throw error;
+  }
+};
+
+export const patchRating = async (rating: number) => {
+  try {
+    setAuthToken();
+    const response = await axios.patch(
+      `${API_URL}${window.location.pathname}/rating/`,
+      { user: localStorage.getItem("userID"), rating: rating }
+    );
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error("Error patch rating", error);
     throw error;
   }
 };
