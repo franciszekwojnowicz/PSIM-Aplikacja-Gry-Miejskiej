@@ -44,7 +44,7 @@ function RestaurantInfoComponent({
               Ocena restuaracji:
             </h1>
             <div className="flex text-yellow-400 ">
-              {Array.from(Array(rating_average), (e, i) => {
+              {Array.from(Array(Math.floor(rating_average)), (e, i) => {
                 return (
                   <StarFilled
                     click={() => {
@@ -55,17 +55,20 @@ function RestaurantInfoComponent({
                   />
                 );
               })}
-              {Array.from(Array(Number(5 - rating_average)), (e, i) => {
-                return (
-                  <StarEmpty
-                    click={() => {
-                      return null;
-                    }}
-                    onHover={false}
-                    key={i}
-                  />
-                );
-              })}
+              {Array.from(
+                Array(Number(5 - Math.floor(rating_average))),
+                (e, i) => {
+                  return (
+                    <StarEmpty
+                      click={() => {
+                        return null;
+                      }}
+                      onHover={false}
+                      key={i}
+                    />
+                  );
+                }
+              )}
             </div>
           </div>
           <div className="flex space-x-2 content-center place-items-baseline">
