@@ -1,1 +1,1 @@
-web: gunicorn Backend.urban_game.urban_game.wsgi:application
+web: gunicorn --pythonpath urban_game urban_game.wsgi
