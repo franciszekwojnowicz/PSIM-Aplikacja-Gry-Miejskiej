@@ -9,7 +9,7 @@ import {
 } from "./types";
 import { text } from "stream/consumers";
 
-const API_URL = `${window.location.origin}/api`;
+const API_URL = `localhost:8000/api`;
 
 export const setAuthToken = (): void => {
   const token = localStorage.getItem("token");
