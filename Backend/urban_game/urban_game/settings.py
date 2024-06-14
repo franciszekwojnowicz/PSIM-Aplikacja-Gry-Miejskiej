@@ -11,7 +11,8 @@ DBPASSWORD = os.getenv("DBPASSWORD")
 DBHOST = os.getenv("DBHOST")
 DBPORT = os.getenv("DBPORT")
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+#BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
