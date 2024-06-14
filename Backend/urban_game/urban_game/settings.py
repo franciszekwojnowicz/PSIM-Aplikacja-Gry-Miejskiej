@@ -18,7 +18,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['*.herokuapp.com']
+ALLOWED_HOSTS = ['psim-restaurants-6e88f08dc16a.herokuapp.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
