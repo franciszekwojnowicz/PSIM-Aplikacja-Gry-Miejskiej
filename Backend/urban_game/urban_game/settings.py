@@ -18,7 +18,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['*.glitch.me']
+ALLOWED_HOSTS = ['*.herokuapp.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
