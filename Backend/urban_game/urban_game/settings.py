@@ -118,7 +118,10 @@ REST_FRAMEWORK = {
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
+    'http://localhost:8000',
     'https://psim-restaurants.herokuapp.com',
     'https://psim-restaurants-6e88f08dc16a.herokuapp.com',
     'psim-restaurants-6e88f08dc16a.herokuapp.com',
+    'https://psim-restaurants-6e88f08dc16a.herokuapp.com/api/',
+
 ]

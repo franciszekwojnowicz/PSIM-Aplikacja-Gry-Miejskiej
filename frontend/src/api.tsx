@@ -9,7 +9,7 @@ import {
 } from "./types";
 import { text } from "stream/consumers";
 
-const API_URL = `http://localhost:8000/api`;
+const API_URL = `https://psim-restaurants-6e88f08dc16a.herokuapp.com/api`;
 
 export const setAuthToken = (): void => {
   const token = localStorage.getItem("token");
