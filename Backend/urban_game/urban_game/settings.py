@@ -18,7 +18,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['psim-restaurants-6e88f08dc16a.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -44,6 +44,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware'
 ]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
 
 ROOT_URLCONF = 'urban_game.urls'
 
@@ -118,7 +121,10 @@ REST_FRAMEWORK = {
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
+    'http://localhost:8000',
     'https://psim-restaurants.herokuapp.com',
     'https://psim-restaurants-6e88f08dc16a.herokuapp.com',
     'psim-restaurants-6e88f08dc16a.herokuapp.com',
+    'https://psim-restaurants-6e88f08dc16a.herokuapp.com/api/',
+
 ]
