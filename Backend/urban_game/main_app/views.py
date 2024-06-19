@@ -379,7 +379,7 @@ def checkAchivements(user):
         if Unlocked_Achivement.objects.filter(user=user_database,achivement=achivement_database).exists() == False:
             new_achivement.save()
             user_database.points += 10
-    if sushi_count>5:
+    if sushi_count>4:
         achivement_database = Achivement.objects.get(name="sushi master")
         new_achivement = Unlocked_Achivement(user=user_database,achivement=achivement_database)
         if Unlocked_Achivement.objects.filter(user=user_database,achivement=achivement_database).exists() == False:
@@ -391,7 +391,7 @@ def checkAchivements(user):
         if Unlocked_Achivement.objects.filter(user=user_database,achivement=achivement_database).exists() == False:
             new_achivement.save()
             user_database.points += 10
-    if pizza_count>5:
+    if pizza_count>4:
         achivement_database = Achivement.objects.get(name="pizza master")
         new_achivement = Unlocked_Achivement(user=user_database,achivement=achivement_database)
         if Unlocked_Achivement.objects.filter(user=user_database,achivement=achivement_database).exists() == False:
@@ -403,7 +403,7 @@ def checkAchivements(user):
         if Unlocked_Achivement.objects.filter(user=user_database,achivement=achivement_database).exists() == False:
             new_achivement.save()
             user_database.points += 10
-    if kebab_count>5:
+    if kebab_count>4:
         achivement_database = Achivement.objects.get(name="kebab master")
         new_achivement = Unlocked_Achivement(user=user_database,achivement=achivement_database)
         if Unlocked_Achivement.objects.filter(user=user_database,achivement=achivement_database).exists() == False:
