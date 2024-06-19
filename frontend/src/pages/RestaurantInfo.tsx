@@ -50,7 +50,7 @@ function RestaurantInfo() {
             image={info.info.image}
             map_link={info.info.map_link}
             address={info.info.address}
-            rating_average={info.info.rating_average}
+            rating_average={Math.round(info.info.rating_average)}
             rating_user={info.info.rating_user}
           />
         ) : (
